@@ -1,10 +1,10 @@
-import md5 from 'md5-hash';
+import md5 from "md5-hash";
 import {
   CreationOptional,
   InferAttributes,
   InferCreationAttributes,
   NonAttribute,
-} from 'sequelize';
+} from "sequelize";
 import {
   AutoIncrement,
   Column,
@@ -18,11 +18,11 @@ import {
   ForeignKey,
   BelongsTo,
   Default,
-} from 'sequelize-typescript';
-import { AuthTocken } from './authTokens.model';
-import { Role } from './role.model';
+} from "sequelize-typescript";
+import { AuthToken } from "./authTokens.model";
+import { Role } from "./role.model";
 
-@Table({ tableName: 'users', createdAt: 'created_at', updatedAt: 'updated_at' })
+@Table({ tableName: "users", createdAt: "created_at", updatedAt: "updated_at" })
 export class User extends Model<
   InferAttributes<User>,
   InferCreationAttributes<User>
@@ -40,14 +40,19 @@ export class User extends Model<
   @AllowNull(false)
   @Column(DataType.STRING(255))
   get hash(): string {
-    return this.getDataValue('hash');
+    return this.getDataValue("hash");
   }
   set hash(value: string) {
-    this.setDataValue('hash', md5(value));
+    this.setDataValue("hash", md5(value));
   }
+
   @AllowNull(false)
   @Column(DataType.STRING(255))
   name: string;
+
+  @AllowNull(true)
+  @Column(DataType.STRING(255))
+  status: string;
 
   @BelongsTo(() => Role)
   role: Role;
@@ -57,6 +62,6 @@ export class User extends Model<
   @Column(DataType.INTEGER)
   role_id: number;
 
-  @HasMany(() => AuthTocken)
-  authTokens?: NonAttribute<AuthTocken[]>;
+  @HasMany(() => AuthToken)
+  authTokens?: NonAttribute<AuthToken[]>;
 }

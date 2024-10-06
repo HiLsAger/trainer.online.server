@@ -2,7 +2,7 @@ import {
   CreationOptional,
   InferAttributes,
   InferCreationAttributes,
-} from 'sequelize';
+} from "sequelize";
 import {
   AllowNull,
   AutoIncrement,
@@ -14,14 +14,14 @@ import {
   PrimaryKey,
   Table,
   Unique,
-} from 'sequelize-typescript';
-import { User } from './user.model';
-import * as crypto from 'crypto';
+} from "sequelize-typescript";
+import { User } from "./user.model";
+import * as crypto from "crypto";
 
-@Table({ tableName: 'auth_tokens', createdAt: 'created_at', updatedAt: false })
-export class AuthTocken extends Model<
-  InferAttributes<AuthTocken>,
-  InferCreationAttributes<AuthTocken>
+@Table({ tableName: "auth_tokens", createdAt: "created_at", updatedAt: false })
+export class AuthToken extends Model<
+  InferAttributes<AuthToken>,
+  InferCreationAttributes<AuthToken>
 > {
   @PrimaryKey
   @AutoIncrement
@@ -35,7 +35,7 @@ export class AuthTocken extends Model<
     defaultValue: () => {
       return crypto
         .randomBytes(Math.ceil(32 / 2))
-        .toString('hex')
+        .toString("hex")
         .slice(0, 32);
     },
   })
@@ -44,10 +44,10 @@ export class AuthTocken extends Model<
   @AllowNull(false)
   @Column(DataType.STRING(15))
   get ip(): string {
-    return this.getDataValue('ip');
+    return this.getDataValue("ip");
   }
   set ip(value: string) {
-    this.setDataValue('ip', value);
+    this.setDataValue("ip", value);
   }
 
   @Column(DataType.DATE)

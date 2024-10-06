@@ -3,7 +3,7 @@ import {
   InferAttributes,
   InferCreationAttributes,
   NonAttribute,
-} from 'sequelize';
+} from "sequelize";
 import {
   AllowNull,
   AutoIncrement,
@@ -13,12 +13,12 @@ import {
   Model,
   PrimaryKey,
   Table,
-} from 'sequelize-typescript';
-import { Schedule } from './schedule.model';
+} from "sequelize-typescript";
+import { Schedule } from "./schedule.model";
 
 @Table({
-  tableName: 'times',
-  createdAt: 'created_at',
+  tableName: "times",
+  createdAt: "created_at",
 })
 export class Time extends Model<
   InferAttributes<Time>,

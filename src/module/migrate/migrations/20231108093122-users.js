@@ -1,8 +1,8 @@
-'use strict';
+"use strict";
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('users', {
+    await queryInterface.createTable("users", {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -30,7 +30,7 @@ module.exports = {
       },
     });
 
-    await queryInterface.createTable('auth_tokens', {
+    await queryInterface.createTable("auth_tokens", {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -39,8 +39,8 @@ module.exports = {
       user_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'users',
-          key: 'id',
+          model: "users",
+          key: "id",
         },
       },
       token: {
@@ -58,7 +58,7 @@ module.exports = {
       },
     });
 
-    await queryInterface.createTable('role_groups', {
+    await queryInterface.createTable("role_groups", {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -80,7 +80,7 @@ module.exports = {
       },
     });
 
-    await queryInterface.createTable('permissions', {
+    await queryInterface.createTable("permissions", {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -95,7 +95,7 @@ module.exports = {
       },
     });
 
-    await queryInterface.createTable('roles_permissions', {
+    await queryInterface.createTable("roles_permissions", {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -105,16 +105,16 @@ module.exports = {
         type: Sequelize.INTEGER,
         primaryKey: true,
         references: {
-          model: 'role_groups',
-          key: 'id',
+          model: "role_groups",
+          key: "id",
         },
       },
       permission_id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         references: {
-          model: 'permissions',
-          key: 'id',
+          model: "permissions",
+          key: "id",
         },
       },
       created_at: {
@@ -122,7 +122,7 @@ module.exports = {
       },
     });
 
-    await queryInterface.createTable('times', {
+    await queryInterface.createTable("times", {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -139,7 +139,7 @@ module.exports = {
       },
     });
 
-    await queryInterface.createTable('statuses', {
+    await queryInterface.createTable("statuses", {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -162,7 +162,7 @@ module.exports = {
       },
     });
 
-    await queryInterface.createTable('trainings', {
+    await queryInterface.createTable("trainings", {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -191,7 +191,7 @@ module.exports = {
       },
     });
 
-    await queryInterface.createTable('subscriptions', {
+    await queryInterface.createTable("subscriptions", {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -221,8 +221,8 @@ module.exports = {
       status_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'statuses',
-          key: 'id',
+          model: "statuses",
+          key: "id",
         },
       },
       created_at: {
@@ -237,7 +237,7 @@ module.exports = {
       },
     });
 
-    await queryInterface.createTable('users_subscriptions', {
+    await queryInterface.createTable("users_subscriptions", {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -246,15 +246,15 @@ module.exports = {
       user_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'users',
-          key: 'id',
+          model: "users",
+          key: "id",
         },
       },
       subscription_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'subscriptions',
-          key: 'id',
+          model: "subscriptions",
+          key: "id",
         },
       },
       date_from: {
@@ -273,8 +273,8 @@ module.exports = {
       status_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'statuses',
-          key: 'id',
+          model: "statuses",
+          key: "id",
         },
       },
       created_at: {
@@ -289,7 +289,7 @@ module.exports = {
       },
     });
 
-    await queryInterface.createTable('training_rooms', {
+    await queryInterface.createTable("training_rooms", {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -322,7 +322,7 @@ module.exports = {
       },
     });
 
-    await queryInterface.createTable('schedules', {
+    await queryInterface.createTable("schedules", {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -331,29 +331,29 @@ module.exports = {
       training_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'trainings',
-          key: 'id',
+          model: "trainings",
+          key: "id",
         },
       },
       trainer_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'users',
-          key: 'id',
+          model: "users",
+          key: "id",
         },
       },
       training_room_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'training_rooms',
-          key: 'id',
+          model: "training_rooms",
+          key: "id",
         },
       },
       time_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'times',
-          key: 'id',
+          model: "times",
+          key: "id",
         },
       },
       day_of_week: {
@@ -365,8 +365,8 @@ module.exports = {
       status_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'statuses',
-          key: 'id',
+          model: "statuses",
+          key: "id",
         },
       },
       price: {
@@ -384,7 +384,7 @@ module.exports = {
       },
     });
 
-    await queryInterface.createTable('registers_trainings', {
+    await queryInterface.createTable("registers_trainings", {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -393,29 +393,29 @@ module.exports = {
       user_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'users',
-          key: 'id',
+          model: "users",
+          key: "id",
         },
       },
       schedule_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'schedules',
-          key: 'id',
+          model: "schedules",
+          key: "id",
         },
       },
       status_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'statuses',
-          key: 'id',
+          model: "statuses",
+          key: "id",
         },
       },
       user_subscription_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'users_subscriptions',
-          key: 'id',
+          model: "users_subscriptions",
+          key: "id",
         },
         allowNull: true,
       },
@@ -435,27 +435,27 @@ module.exports = {
       },
     });
 
-    await queryInterface.addConstraint('users', {
-      fields: ['role_id'],
-      type: 'FOREIGN KEY',
+    await queryInterface.addConstraint("users", {
+      fields: ["role_id"],
+      type: "FOREIGN KEY",
       references: {
-        table: 'role_groups',
-        field: 'id',
+        table: "role_groups",
+        field: "id",
       },
-      onDelete: 'CASCADE',
-      onUpdate: 'CASCADE',
+      onDelete: "CASCADE",
+      onUpdate: "CASCADE",
     });
 
-    await queryInterface.addConstraint('roles_permissions', {
-      type: 'unique',
-      fields: ['role_id', 'permission_id'],
-      name: 'unique_role_permission',
+    await queryInterface.addConstraint("roles_permissions", {
+      type: "unique",
+      fields: ["role_id", "permission_id"],
+      name: "unique_role_permission",
     });
 
-    await queryInterface.addConstraint('registers_trainings', {
-      type: 'check',
-      name: 'user_subscription_id_or_price',
-      fields: ['user_subscription_id', 'price'],
+    await queryInterface.addConstraint("registers_trainings", {
+      type: "check",
+      name: "user_subscription_id_or_price",
+      fields: ["user_subscription_id", "price"],
       where: {
         [Sequelize.Op.or]: [
           { user_subscription_id: { [Sequelize.Op.not]: null } },
@@ -464,29 +464,29 @@ module.exports = {
       },
     });
 
-    await queryInterface.bulkInsert('role_groups', [
+    await queryInterface.bulkInsert("role_groups", [
       {
-        name: 'NoRole',
-        description: 'base role havent permissions',
+        name: "NoRole",
+        description: "base role havent permissions",
         created_at: new Date(),
         updated_at: new Date(),
       },
       {
-        name: 'Administrator',
-        description: 'super admin, have all permissions',
+        name: "Administrator",
+        description: "super admin, have all permissions",
         created_at: new Date(),
         updated_at: new Date(),
       },
     ]);
 
-    await queryInterface.bulkInsert('permissions', [
+    await queryInterface.bulkInsert("permissions", [
       {
-        name: 'getUser',
-        description: 'Gives the right to will get information about the users',
+        name: "getUser",
+        description: "Gives the right to will get information about the users",
       },
     ]);
 
-    await queryInterface.bulkInsert('roles_permissions', [
+    await queryInterface.bulkInsert("roles_permissions", [
       {
         role_id: 2,
         permission_id: 1,
@@ -494,99 +494,99 @@ module.exports = {
       },
     ]);
 
-    await queryInterface.bulkInsert('users', [
+    await queryInterface.bulkInsert("users", [
       {
-        login: 'admin',
-        hash: '81dc9bdb52d04dc20036dbd8313ed055',
+        login: "admin",
+        hash: "81dc9bdb52d04dc20036dbd8313ed055",
         role_id: 2,
         created_at: new Date(),
         updated_at: new Date(),
       },
     ]);
 
-    await queryInterface.bulkInsert('times', [
+    await queryInterface.bulkInsert("times", [
       {
-        start_time: '07:00',
-        end_time: '08:00',
+        start_time: "07:00",
+        end_time: "08:00",
         created_at: new Date(),
       },
       {
-        start_time: '08:00',
-        end_time: '09:00',
+        start_time: "08:00",
+        end_time: "09:00",
         created_at: new Date(),
       },
       {
-        start_time: '09:00',
-        end_time: '10:00',
+        start_time: "09:00",
+        end_time: "10:00",
         created_at: new Date(),
       },
       {
-        start_time: '10:00',
-        end_time: '11:00',
+        start_time: "10:00",
+        end_time: "11:00",
         created_at: new Date(),
       },
       {
-        start_time: '11:00',
-        end_time: '12:00',
+        start_time: "11:00",
+        end_time: "12:00",
         created_at: new Date(),
       },
       {
-        start_time: '12:00',
-        end_time: '13:00',
+        start_time: "12:00",
+        end_time: "13:00",
         created_at: new Date(),
       },
       {
-        start_time: '13:00',
-        end_time: '14:00',
+        start_time: "13:00",
+        end_time: "14:00",
         created_at: new Date(),
       },
       {
-        start_time: '15:00',
-        end_time: '16:00',
+        start_time: "15:00",
+        end_time: "16:00",
         created_at: new Date(),
       },
       {
-        start_time: '16:00',
-        end_time: '17:00',
+        start_time: "16:00",
+        end_time: "17:00",
         created_at: new Date(),
       },
       {
-        start_time: '17:00',
-        end_time: '18:00',
+        start_time: "17:00",
+        end_time: "18:00",
         created_at: new Date(),
       },
       {
-        start_time: '18:00',
-        end_time: '19:00',
+        start_time: "18:00",
+        end_time: "19:00",
         created_at: new Date(),
       },
       {
-        start_time: '19:00',
-        end_time: '20:00',
+        start_time: "19:00",
+        end_time: "20:00",
         created_at: new Date(),
       },
       {
-        start_time: '07:00',
-        end_time: '08:00',
+        start_time: "07:00",
+        end_time: "08:00",
         created_at: new Date(),
       },
       {
-        start_time: '20:00',
-        end_time: '21:00',
+        start_time: "20:00",
+        end_time: "21:00",
         created_at: new Date(),
       },
       {
-        start_time: '21:00',
-        end_time: '22:00',
+        start_time: "21:00",
+        end_time: "22:00",
         created_at: new Date(),
       },
     ]);
 
-    await queryInterface.bulkInsert('training_rooms', [
+    await queryInterface.bulkInsert("training_rooms", [
       {
-        name: 'Зал №1',
-        description: 'Стандартный зал',
-        color: '#FFFFFF',
+        name: "Зал №1",
+        description: "Стандартный зал",
+        color: "#FFFFFF",
         created_at: new Date(),
         updated_at: new Date(),
       },
@@ -594,18 +594,18 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('roles_permissions');
-    await queryInterface.dropTable('permissions');
-    await queryInterface.dropTable('role_groups');
-    await queryInterface.dropTable('auth_tokens');
-    await queryInterface.dropTable('users');
-    await queryInterface.dropTable('registers_trainings');
-    await queryInterface.dropTable('schedules');
-    await queryInterface.dropTable('statuses');
-    await queryInterface.dropTable('subscriptions');
-    await queryInterface.dropTable('times');
-    await queryInterface.dropTable('trainings');
-    await queryInterface.dropTable('training_rooms');
-    await queryInterface.dropTable('users_subscriptions	');
+    await queryInterface.dropTable("roles_permissions");
+    await queryInterface.dropTable("permissions");
+    await queryInterface.dropTable("role_groups");
+    await queryInterface.dropTable("auth_tokens");
+    await queryInterface.dropTable("users");
+    await queryInterface.dropTable("registers_trainings");
+    await queryInterface.dropTable("schedules");
+    await queryInterface.dropTable("statuses");
+    await queryInterface.dropTable("subscriptions");
+    await queryInterface.dropTable("times");
+    await queryInterface.dropTable("trainings");
+    await queryInterface.dropTable("training_rooms");
+    await queryInterface.dropTable("users_subscriptions	");
   },
 };

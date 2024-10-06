@@ -3,7 +3,7 @@ import {
   InferCreationAttributes,
   Model,
   NonAttribute,
-} from 'sequelize';
+} from "sequelize";
 import {
   AllowNull,
   AutoIncrement,
@@ -13,13 +13,13 @@ import {
   PrimaryKey,
   Table,
   Unique,
-} from 'sequelize-typescript';
-import { Schedule } from './schedule.model';
-import { RegisterTraining } from './registerTraining.model';
-import { Subscription } from './subscription.model';
+} from "sequelize-typescript";
+import { Schedule } from "./schedule.model";
+import { RegisterTraining } from "./registerTraining.model";
+import { Subscription } from "./subscription.model";
 
 @Table({
-  tableName: 'statuses',
+  tableName: "statuses",
 })
 export class Status extends Model<
   InferAttributes<Status>,

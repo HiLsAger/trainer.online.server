@@ -2,7 +2,7 @@ import {
   InferAttributes,
   InferCreationAttributes,
   NonAttribute,
-} from 'sequelize';
+} from "sequelize";
 import {
   AllowNull,
   AutoIncrement,
@@ -13,11 +13,11 @@ import {
   PrimaryKey,
   Table,
   Unique,
-} from 'sequelize-typescript';
-import { RolePermission } from './rolePermission.model';
-import { Role } from './role.model';
+} from "sequelize-typescript";
+import { RolePermission } from "./rolePermission.model";
+import { Role } from "./role.model";
 
-@Table({ tableName: 'permissions', createdAt: false, updatedAt: false })
+@Table({ tableName: "permissions", createdAt: false, updatedAt: false })
 export class Permission extends Model<
   InferAttributes<Permission>,
   InferCreationAttributes<Permission>

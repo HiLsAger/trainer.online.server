@@ -4,7 +4,7 @@ import {
   InferCreationAttributes,
   Model,
   NonAttribute,
-} from 'sequelize';
+} from "sequelize";
 import {
   AllowNull,
   AutoIncrement,
@@ -14,14 +14,14 @@ import {
   PrimaryKey,
   Table,
   Unique,
-} from 'sequelize-typescript';
-import { Schedule } from './schedule.model';
+} from "sequelize-typescript";
+import { Schedule } from "./schedule.model";
 
 @Table({
-  tableName: 'trainings',
-  createdAt: 'created_at',
-  updatedAt: 'updated_at',
-  deletedAt: 'deleted_at',
+  tableName: "trainings",
+  createdAt: "created_at",
+  updatedAt: "updated_at",
+  deletedAt: "deleted_at",
 })
 export class Training extends Model<
   InferAttributes<Training>,

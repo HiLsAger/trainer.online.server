@@ -8,14 +8,15 @@ import {
   Model,
   PrimaryKey,
   Table,
-} from 'sequelize-typescript';
-import { Role } from './role.model';
-import { Permission } from './permission.model';
-import { InferAttributes, InferCreationAttributes } from 'sequelize';
+} from "sequelize-typescript";
+import { Role } from "./role.model";
+import { Permission } from "./permission.model";
+import { InferAttributes, InferCreationAttributes } from "sequelize";
+import { Conditions } from "src/module/guards/permission/strorage/condition.strorage";
 
 @Table({
-  tableName: 'roles_permissions',
-  createdAt: 'created_at',
+  tableName: "roles_permissions",
+  createdAt: "created_at",
   updatedAt: false,
 })
 export class RolePermission extends Model<
@@ -42,4 +43,8 @@ export class RolePermission extends Model<
   @AllowNull(false)
   @Column(DataType.INTEGER)
   permission_id: number;
+
+  @AllowNull(false)
+  @Column(DataType.ENUM("self", "%"))
+  condition: string;
 }

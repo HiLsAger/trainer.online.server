@@ -1,36 +1,28 @@
-import md5 from 'md5-hash';
+import md5 from "md5-hash";
 import {
   Injectable,
-  Ip,
   NotAcceptableException,
   NotFoundException,
-} from '@nestjs/common';
-import { InjectModel } from '@nestjs/sequelize';
-import { User } from '../datebase/models/user.model';
-import { UserInput, UserLoginInput } from '../datebase/model.inputs/user.input';
-import { AuthTocken } from '../datebase/models/authTokens.model';
-import { authTokenResponse } from './auth.interfaces';
+} from "@nestjs/common";
+import { InjectModel } from "@nestjs/sequelize";
+import { User } from "../datebase/models/user.model";
+import { UserInput, UserLoginInput } from "../datebase/model.inputs/user.input";
+import { AuthToken } from "../datebase/models/authTokens.model";
+import { authTokenResponse } from "./auth.interfaces";
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectModel(User) private readonly modelUser: typeof User,
-    @InjectModel(AuthTocken) private readonly modelAuthToken: typeof AuthTocken,
+    @InjectModel(AuthToken) private readonly modelAuthToken: typeof AuthToken,
   ) {}
-
-  async getHello() {
-    const data = await this.modelUser.findOne({
-      where: { id: 1 },
-    });
-    return data;
-  }
 
   async getUserByLogin(login: string): Promise<User | null> {
     const data = await this.modelUser.findOne({
       where: {
         login: login,
       },
-      rejectOnEmpty: new NotFoundException('Пользователь не найден'),
+      rejectOnEmpty: new NotFoundException("Пользователь не найден"),
     });
     return data;
   }
@@ -50,19 +42,25 @@ export class AuthService {
       where: { login: body.login, hash: md5(body.hash) },
     });
 
-    let token = undefined;
-    if (user) {
-      token = await this.modelAuthToken.create({ ip: ip, user_id: user.id });
-      if (!token)
-        token = new NotAcceptableException('Не удалось создать токен');
-      else token.user = user;
-      console.log(token);
-    } else token = new NotFoundException('Логин или пароль не верный');
+    if (!user) {
+      throw new NotFoundException("Логин или пароль не верный");
+    }
+
+    const token = await this.modelAuthToken.create({
+      ip: ip,
+      user_id: user.id,
+    });
+
+    if (!token) {
+      throw new NotAcceptableException("Не удалось создать токен");
+    }
+
+    token.user = user;
 
     return this.createAuthTokenResponse(token);
   }
 
-  private createAuthTokenResponse(model: AuthTocken): authTokenResponse {
+  private createAuthTokenResponse(model: AuthToken): authTokenResponse {
     const token: authTokenResponse = {
       token: model.token,
       created: model.created_at,

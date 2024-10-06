@@ -1,4 +1,4 @@
-import { InferAttributes, InferCreationAttributes } from 'sequelize';
+import { InferAttributes, InferCreationAttributes } from "sequelize";
 import {
   AutoIncrement,
   Column,
@@ -6,13 +6,13 @@ import {
   Model,
   PrimaryKey,
   Table,
-} from 'sequelize-typescript';
+} from "sequelize-typescript";
 
 @Table({
-  tableName: 'registers_trainings',
-  createdAt: 'created_at',
-  updatedAt: 'updated_at',
-  deletedAt: 'deleted_at',
+  tableName: "registers_trainings",
+  createdAt: "created_at",
+  updatedAt: "updated_at",
+  deletedAt: "deleted_at",
 })
 export class RegisterTraining extends Model<
   InferAttributes<RegisterTraining>,

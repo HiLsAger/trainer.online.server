@@ -1,14 +1,16 @@
 import {
   CanActivate,
   ExecutionContext,
+  ForbiddenException,
   Injectable,
   SetMetadata,
-} from '@nestjs/common';
-import { AppAbility, CaslAbilityFactory } from './casl-ability.factory';
-import { Reflector } from '@nestjs/core';
-import { AuthGuardService } from '../services/auth.guard.service';
-import { FastifyRequest } from 'fastify';
-import { AuthTocken } from 'src/module/datebase/models/authTokens.model';
+} from "@nestjs/common";
+import { AppAbility, CaslAbilityFactory } from "./casl-ability.factory";
+import { Reflector } from "@nestjs/core";
+import { AuthGuardService } from "../auth/auth.guard.service";
+import { FastifyRequest } from "fastify";
+import { AuthToken } from "src/module/datebase/models/authTokens.model";
+import { AuthHelper } from "src/core/helpers/auth.helper";
 
 interface IPolicyHandler {
   handle(ability: AppAbility): boolean;
@@ -18,7 +20,7 @@ type PolicyHandlerCallback = (ability: AppAbility) => boolean;
 
 export type PolicyHandler = IPolicyHandler | PolicyHandlerCallback;
 
-export const CHECK_POLICIES_KEY = 'check_policy';
+export const CHECK_POLICIES_KEY = "check_policy";
 
 @Injectable()
 export class PermissionGuard implements CanActivate {
@@ -29,7 +31,7 @@ export class PermissionGuard implements CanActivate {
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
-    const PolicyHandler =
+    const policyHandler =
       this.reflector.get<PolicyHandler[]>(
         CHECK_POLICIES_KEY,
         context.getHandler(),
@@ -37,24 +39,27 @@ export class PermissionGuard implements CanActivate {
 
     const { authorization } = context
       .switchToHttp()
-      .getRequest<FastifyRequest & { token: AuthTocken }>().headers;
-    console.log(
-      context
-        .switchToHttp()
-        .getRequest<FastifyRequest & { token: AuthTocken }>().headers,
-    );
+      .getRequest<FastifyRequest & { token: AuthToken }>().headers;
 
     const ability = this.caslAbilityFactory.createForUser(
-      await this.authGuardService.getUserPermission(authorization),
+      await this.authGuardService.getUserPermission(
+        AuthHelper.removeBearer(authorization),
+      ),
     );
 
-    return PolicyHandler.every((handler) =>
+    const isAllowed = policyHandler.every((handler) =>
       this.execPolicyHandler(handler, ability),
     );
+
+    if (!isAllowed) {
+      throw new ForbiddenException("У вас недостаточно прав для доступа");
+    }
+
+    return isAllowed;
   }
 
   private execPolicyHandler(handler: PolicyHandler, ability: AppAbility) {
-    if (typeof handler == 'function') return handler(ability);
+    if (typeof handler == "function") return handler(ability);
     return handler.handle(ability);
   }
 }

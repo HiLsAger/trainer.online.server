@@ -3,7 +3,7 @@ import {
   InferAttributes,
   InferCreationAttributes,
   NonAttribute,
-} from 'sequelize';
+} from "sequelize";
 import {
   AllowNull,
   AutoIncrement,
@@ -15,15 +15,15 @@ import {
   PrimaryKey,
   Table,
   Unique,
-} from 'sequelize-typescript';
-import { RolePermission } from './rolePermission.model';
-import { User } from './user.model';
-import { Permission } from './permission.model';
+} from "sequelize-typescript";
+import { RolePermission } from "./rolePermission.model";
+import { User } from "./user.model";
+import { Permission } from "./permission.model";
 
 @Table({
-  tableName: 'role_groups',
-  createdAt: 'created_at',
-  updatedAt: 'updated_at',
+  tableName: "role_groups",
+  createdAt: "created_at",
+  updatedAt: "updated_at",
 })
 export class Role extends Model<
   InferAttributes<Role>,
@@ -43,10 +43,11 @@ export class Role extends Model<
   @Column(DataType.STRING(1024))
   description?: string | null;
 
-  // @HasMany(() => RolePermission)
-  // rolePermissions?: NonAttribute<RolePermission[]>;
   @BelongsToMany(() => Permission, () => RolePermission)
   permissions?: NonAttribute<Permission[]>;
+
+  @HasMany(() => RolePermission)
+  rolePermissions?: NonAttribute<RolePermission[]>;
 
   @HasMany(() => User)
   users?: NonAttribute<User[]>;

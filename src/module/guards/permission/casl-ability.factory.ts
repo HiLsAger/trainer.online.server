@@ -4,37 +4,41 @@ import {
   InferSubjects,
   PureAbility,
   createMongoAbility,
-} from '@casl/ability';
-import { Injectable } from '@nestjs/common';
-import { User } from 'src/module/datebase/models/user.model';
+} from "@casl/ability";
+import { Injectable } from "@nestjs/common";
+import { User } from "src/module/datebase/models/user.model";
+import authPermissions from "./permissions/auth.permission";
+import profilePermissions from "./permissions/profile.permission";
+import usersPermissions from "./permissions/users.permission";
 
 export class Article {
   id: number;
 }
 
-export enum Action {
-  Manage = 'manage',
-  Create = 'create',
-  Read = 'read',
-  Update = 'update',
-  Delete = 'delete',
-  Login = 'login',
-  Register = 'register',
-  GetUser = 'getUser',
-}
+type Actions = authPermissions | profilePermissions | usersPermissions;
+
+const ActionsValues = {
+  ...authPermissions,
+  ...profilePermissions,
+  ...usersPermissions,
+};
 
 type Subjects = InferSubjects<typeof Article | typeof User>;
 
-export type AppAbility = PureAbility<[Action, Subjects]>;
+export type AppAbility = PureAbility<[Actions, Subjects]>;
 @Injectable()
 export class CaslAbilityFactory {
   createForUser(user: User) {
     const { can, cannot, build } = new AbilityBuilder<AppAbility>(
       createMongoAbility,
     );
-    if (user.role.permissions.find((perm) => perm.name === Action.GetUser)) {
-      can(Action.GetUser, Article);
-    }
+
+    user.role.permissions.forEach((permission) => {
+      const action = permission.name as Actions;
+      if (Object.values(ActionsValues).includes(action)) {
+        can(action, Article);
+      }
+    });
 
     return build({
       detectSubjectType: (item) =>

@@ -64,4 +64,9 @@ export class User extends Model<
 
   @HasMany(() => AuthToken)
   authTokens?: NonAttribute<AuthToken[]>;
+
+  @Column(DataType.VIRTUAL)
+  get roleName(): string {
+    return this.role ? this.role.name : null; // Возвращает имя роли или null, если роли нет
+  }
 }

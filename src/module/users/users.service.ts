@@ -2,9 +2,11 @@ import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
 import { User } from "../datebase/models/user.model";
 import { AuthToken } from "../datebase/models/authTokens.model";
-import { Filter } from "./users.intefrace";
-import { ListStorage } from "../../storage/list.storage";
+import { Filter, Grid } from "./users.intefrace";
 import { Role } from "../datebase/models/role.model";
+import UsersHelper from "./users.helper";
+import { Form } from "../../components/form/form.interface";
+import ListStorage from "../../storage/list.storage";
 
 @Injectable()
 export class UsersService {
@@ -13,12 +15,12 @@ export class UsersService {
     @InjectModel(AuthToken) private readonly modelAuthToken: typeof AuthToken,
   ) {}
 
-  public async getUsers(
+  public async getUsersGrid(
     limit: number = 50,
     page: number = 1,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     filters: Filter | null,
-  ): Promise<User[]> {
+  ): Promise<Grid> {
     limit =
       limit <= ListStorage.maxListItems ? limit : ListStorage.maxListItems;
 
@@ -32,16 +34,19 @@ export class UsersService {
       limit: Number(limit),
     });
 
-    return this.prepareUsers(users);
+    return UsersHelper.prepareUsers(users);
   }
 
-  protected prepareUsers(users: User[]): User[] {
-    return users.map((user) => ({
-      id: user.id,
-      login: user.login,
-      name: user.name,
-      status: user.status,
-      roleName: user.role ? user.role.name : null,
-    })) as User[];
+  public async getUsersForm(id: number): Promise<Form> {
+    const user = await User.findOne({
+      attributes: ["id", "login", "name", "status"],
+      include: {
+        model: Role,
+        attributes: ["name"],
+      },
+      where: { id: id },
+    });
+
+    return UsersHelper.prepareUserToForm(user);
   }
 }

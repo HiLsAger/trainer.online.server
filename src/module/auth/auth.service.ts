@@ -2,7 +2,7 @@ import md5 from "md5-hash";
 import {
   Injectable,
   NotAcceptableException,
-  NotFoundException,
+  NotFoundException, UnauthorizedException
 } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
 import { User } from "../datebase/models/user.model";
@@ -43,7 +43,7 @@ export class AuthService {
     });
 
     if (!user) {
-      throw new NotFoundException("Логин или пароль не верный");
+      throw new UnauthorizedException("Логин или пароль не верный");
     }
 
     const token = await this.modelAuthToken.create({
@@ -52,7 +52,7 @@ export class AuthService {
     });
 
     if (!token) {
-      throw new NotAcceptableException("Не удалось создать токен");
+      throw new UnauthorizedException("Не удалось создать токен");
     }
 
     token.user = user;

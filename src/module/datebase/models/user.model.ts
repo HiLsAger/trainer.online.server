@@ -67,6 +67,6 @@ export class User extends Model<
 
   @Column(DataType.VIRTUAL)
   get roleName(): string {
-    return this.role ? this.role.name : null; // Возвращает имя роли или null, если роли нет
+    return this.role ? this.role.name : null;
   }
 }

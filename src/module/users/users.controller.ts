@@ -1,4 +1,4 @@
-import { Controller, Get, Query, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, Post, Query, UseGuards } from "@nestjs/common";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import { UsersService } from "./users.service";
 import { Auth, AuthGuard } from "../guards/auth/auth.guard";
@@ -11,6 +11,7 @@ import usersPermissions from "../guards/permission/permissions/users.permission"
 import { AuthToken } from "../datebase/models/authTokens.model";
 import { Filter, Grid } from "./users.intefrace";
 import { Form } from "../../components/form/form.interface";
+import { UserData, UserInputForm } from "../datebase/model.inputs/user.input";
 
 @ApiTags("Работа с пользователями")
 @Controller("users")
@@ -38,10 +39,25 @@ export class UsersController {
   @Permission((ability: AppAbility) =>
     ability.can(usersPermissions.GetUsers, Article),
   )
+  async user(@Auth() token: AuthToken, @Query("id") id: number): Promise<Form> {
+    return this.service.getUsersForm(id);
+  }
+
+  @Post("user")
+  @ApiBearerAuth("Authorization")
+  @UseGuards(AuthGuard, PermissionGuard)
   @Permission((ability: AppAbility) =>
     ability.can(usersPermissions.UpdateUser, Article),
   )
-  async user(@Auth() token: AuthToken, @Query("id") id: number): Promise<Form> {
-    return this.service.getUsersForm(id);
+  async updateUser(
+    @Auth() token: AuthToken,
+    @Body() user: UserInputForm,
+    @Query("id") id: number = null,
+  ): Promise<UserData> {
+    if (id || user.id) {
+      return await this.service.updateUser(user, id);
+    }
+
+    return await this.service.insertUser(user);
   }
 }

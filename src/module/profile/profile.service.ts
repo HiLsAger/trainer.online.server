@@ -26,13 +26,6 @@ export class ProfileService {
   }
 
   async editProfileInfo(user: User, body: ProfileEdit): Promise<Profile> {
-    console.log(
-      this.permissionService.validateCondition(
-        user,
-        "%",
-        profilePermissions.EditStatus,
-      ),
-    );
     if (
       body.userId &&
       !this.permissionService.validateCondition(
@@ -67,13 +60,11 @@ export class ProfileService {
   }
 
   private prepareProfile(user: User): Profile {
-    const profile: Profile = {
+    return {
       name: user.name,
       role: user.role.name,
       status: user.status,
     };
-
-    return profile;
   }
 
   private rebuildEditProfileData(data: ProfileEdit): ProfileEdit {

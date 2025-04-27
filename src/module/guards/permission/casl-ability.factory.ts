@@ -10,18 +10,13 @@ import { User } from "src/module/datebase/models/user.model";
 import authPermissions from "./permissions/auth.permission";
 import profilePermissions from "./permissions/profile.permission";
 import usersPermissions from "./permissions/users.permission";
+import actionsValues from "./permissions/actionsValues";
 
 export class Article {
   id: number;
 }
 
 type Actions = authPermissions | profilePermissions | usersPermissions;
-
-const ActionsValues = {
-  ...authPermissions,
-  ...profilePermissions,
-  ...usersPermissions,
-};
 
 type Subjects = InferSubjects<typeof Article | typeof User>;
 
@@ -35,7 +30,7 @@ export class CaslAbilityFactory {
 
     user.role.permissions.forEach((permission) => {
       const action = permission.name as Actions;
-      if (Object.values(ActionsValues).includes(action)) {
+      if (Object.values(actionsValues).includes(action)) {
         can(action, Article);
       }
     });

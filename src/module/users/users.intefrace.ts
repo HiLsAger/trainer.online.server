@@ -8,17 +8,17 @@ export interface Grid {
 }
 
 export interface Body {
-  columns: (string | number)[];
+  columns: (string | number | Action[])[];
   actions?: Actions;
 }
 
 export interface Actions {
   rowActionUrl?: string | null;
-  action?: Action[] | null;
 }
 
 export interface Action {
   url: string;
   title?: string | null;
   icon?: string | null;
+  method?: string;
 }

@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Post, Query, UseGuards } from "@nestjs/common";
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Delete,
+  Query,
+  UseGuards,
+} from "@nestjs/common";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import { UsersService } from "./users.service";
 import { Auth, AuthGuard } from "../guards/auth/auth.guard";
@@ -59,5 +67,18 @@ export class UsersController {
     }
 
     return await this.service.insertUser(user);
+  }
+
+  @Delete("delete")
+  @ApiBearerAuth("Authorization")
+  @UseGuards(AuthGuard, PermissionGuard)
+  @Permission((ability: AppAbility) =>
+    ability.can(usersPermissions.DeleteUser, Article),
+  )
+  async deleteUser(
+    @Auth() token: AuthToken,
+    @Query("id") id: number,
+  ): Promise<string> {
+    return await this.service.deleteUser(id);
   }
 }

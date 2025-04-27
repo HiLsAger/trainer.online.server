@@ -1,4 +1,5 @@
 export interface Form {
+  title?: string;
   labels: { [key: string]: Label };
   action?: string;
   method?: string;
@@ -12,6 +13,7 @@ export interface Label {
   type?: string;
   required?: boolean;
   tooltip?: string;
+  list?: string | object;
   max?: number;
   min?: number;
 }

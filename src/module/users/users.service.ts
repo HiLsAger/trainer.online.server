@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, Response } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
 import { User } from "../datebase/models/user.model";
 import { AuthToken } from "../datebase/models/authTokens.model";
@@ -43,7 +43,7 @@ export class UsersService {
 
   public async getUsersForm(id: number): Promise<Form> {
     const user = await User.findOne({
-      attributes: ["id", "login", "name", "status"],
+      attributes: ["id", "login", "name", "status", "role_id"],
       include: {
         model: Role,
         attributes: ["name"],
@@ -64,6 +64,7 @@ export class UsersService {
       login: data.login,
       name: data.name,
       status: data.status,
+      role_id: data.role_id,
     });
 
     return this.prepareUser(user);
@@ -78,6 +79,13 @@ export class UsersService {
     });
 
     return this.prepareUser(user);
+  }
+
+  public async deleteUser(id: number): Promise<string> {
+    await this.modelAuthToken.destroy({ where: { user_id: id } });
+    await this.modelUser.destroy({ where: { id: id } });
+
+    return "test";
   }
 
   protected prepareUser(user: User): UserData {

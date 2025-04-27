@@ -2,6 +2,7 @@ import { CreationAttributes } from "sequelize";
 import { User } from "../models/user.model";
 import { ApiProperty } from "@nestjs/swagger";
 import { IsNotEmpty, IsNumber, IsOptional, IsString, Validate } from "class-validator";
+import { Type } from "class-transformer";
 
 export class UserInput implements CreationAttributes<User> {
   @ApiProperty({ description: "Логин" })
@@ -45,6 +46,12 @@ export class UserInputForm implements CreationAttributes<User> {
   @IsString()
   @IsOptional()
   status: string;
+
+  @ApiProperty({ description: "Роль" })
+  @Type(() => Number)
+  @IsNumber()
+  @IsOptional()
+  role_id: number;
 }
 
 export class UserData implements CreationAttributes<User> {

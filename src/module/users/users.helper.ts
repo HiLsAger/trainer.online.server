@@ -6,6 +6,7 @@ import FormStorage from "../../storage/form.storage";
 export default class UsersHelper {
   public static prepareUserToForm(user: User): Form {
     return {
+      title: `Редактировать ${user.login}`,
       labels: {
         login: {
           title: "Логин",
@@ -31,6 +32,15 @@ export default class UsersHelper {
           required: false,
           value: user.status,
         },
+        role_id: {
+          title: "Роль",
+          placeholder: "Роль",
+          type: "select",
+          templateType: FormStorage.templateTypeSelect,
+          list: "fields/roles",
+          required: true,
+          value: user.role_id,
+        },
       },
       method: "POST",
       action: `users/user?id=${user.id}`,
@@ -39,7 +49,7 @@ export default class UsersHelper {
 
   public static prepareUsers(users: User[]): Grid {
     return {
-      head: ["Id", "Логин", "Имя", "Статус профиля", "Роль"],
+      head: ["Id", "Логин", "Имя", "Статус профиля", "Роль", "Действия"],
       body: users.map((user) => UsersHelper.prepareBody(user)),
     } as unknown as Grid;
   }
@@ -52,6 +62,14 @@ export default class UsersHelper {
         user.name,
         user.status,
         user.role ? user.role.name : "",
+        [
+          {
+            title: "Удалить",
+            url: `users/delete/?id=${user.id}`,
+            icon: null,
+            method: "DELETE",
+          },
+        ],
       ],
       actions: {
         rowActionUrl: `users/user?id=${user.id}`,

@@ -10,6 +10,7 @@ import {
   BelongsToMany,
   Column,
   DataType,
+  Default,
   HasMany,
   Model,
   PrimaryKey,
@@ -42,6 +43,11 @@ export class Role extends Model<
   @AllowNull(true)
   @Column(DataType.STRING(1024))
   description?: string | null;
+
+  @AllowNull(false)
+  @Default(false)
+  @Column(DataType.BOOLEAN)
+  system: boolean;
 
   @BelongsToMany(() => Permission, () => RolePermission)
   permissions?: NonAttribute<Permission[]>;

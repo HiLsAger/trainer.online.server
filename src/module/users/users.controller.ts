@@ -17,9 +17,9 @@ import {
 import { AppAbility, Article } from "../guards/permission/casl-ability.factory";
 import usersPermissions from "../guards/permission/permissions/users.permission";
 import { AuthToken } from "../datebase/models/authTokens.model";
-import { Filter, Grid } from "./users.intefrace";
-import { Form } from "../../components/form/form.interface";
 import { UserData, UserInputForm } from "../datebase/model.inputs/user.input";
+import { Filter, Grid } from "../../system/interfaces/grid.intefrace";
+import Form from "../../packages/forms/interfaces/form.interface";
 
 @ApiTags("Работа с пользователями")
 @Controller("users")

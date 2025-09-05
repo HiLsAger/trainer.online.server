@@ -11,12 +11,17 @@ import authPermissions from "./permissions/auth.permission";
 import profilePermissions from "./permissions/profile.permission";
 import usersPermissions from "./permissions/users.permission";
 import actionsValues from "./permissions/actionsValues";
+import permissionsPermissions from "./permissions/permissions.permission";
 
 export class Article {
   id: number;
 }
 
-type Actions = authPermissions | profilePermissions | usersPermissions;
+type Actions =
+  | authPermissions
+  | profilePermissions
+  | usersPermissions
+  | permissionsPermissions;
 
 type Subjects = InferSubjects<typeof Article | typeof User>;
 

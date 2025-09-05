@@ -8,7 +8,7 @@ import {
 import { FastifyRequest } from "fastify";
 import { AuthToken } from "src/module/datebase/models/authTokens.model";
 import { AuthGuardService } from "./auth.guard.service";
-import { AuthHelper } from "src/core/helpers/auth.helper";
+import { AuthHelper } from "src/system/helpers/auth.helper";
 
 @Injectable()
 export class AuthGuard implements CanActivate {

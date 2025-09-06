@@ -5,6 +5,7 @@ import { Auth, AuthGuard } from "../guards/auth/auth.guard";
 import { PermissionGuard } from "../guards/permission/permission.guard";
 import { AuthToken } from "../datebase/models/authTokens.model";
 import { Role } from "../datebase/models/role.model";
+import { Permission } from "../datebase/models/permission.model";
 
 @ApiTags("Профиль")
 @Controller("fields")
@@ -14,7 +15,14 @@ export class FieldsController {
   @Get("roles")
   @ApiBearerAuth("Authorization")
   @UseGuards(AuthGuard, PermissionGuard)
-  async getData(@Auth() token: AuthToken): Promise<object> {
+  async getRoles(@Auth() token: AuthToken): Promise<object> {
     return this.service.getData(Role.tableName);
+  }
+
+  @Get("permissions")
+  @ApiBearerAuth("Authorization")
+  @UseGuards(AuthGuard, PermissionGuard)
+  async getPermissions(@Auth() token: AuthToken): Promise<object> {
+    return this.service.getData(Permission.tableName);
   }
 }

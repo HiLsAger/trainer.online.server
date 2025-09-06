@@ -33,7 +33,7 @@ export class Role extends Model<
   @PrimaryKey
   @AutoIncrement
   @Column(DataType.INTEGER)
-  id: CreateOptions<number>;
+  id: number;
 
   @Unique
   @AllowNull(false)

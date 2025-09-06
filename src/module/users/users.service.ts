@@ -82,7 +82,7 @@ export class UsersService {
     await this.modelAuthToken.destroy({ where: { user_id: id } });
     await this.modelUser.destroy({ where: { id: id } });
 
-    return "test";
+    return "success";
   }
 
   protected prepareUser(user: User): UserData {

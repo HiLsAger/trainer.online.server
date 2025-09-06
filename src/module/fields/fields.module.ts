@@ -8,9 +8,10 @@ import PermissionService from "../guards/permission/permission.service";
 import { FieldsController } from "./fields.controller";
 import { FieldsService } from "./fields.service";
 import { Role } from "../datebase/models/role.model";
+import { Permission } from "../datebase/models/permission.model";
 
 @Module({
-  imports: [SequelizeModule.forFeature([User, AuthToken, Role])],
+  imports: [SequelizeModule.forFeature([User, AuthToken, Role, Permission])],
   providers: [
     FieldsService,
     AuthGuardService,

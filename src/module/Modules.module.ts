@@ -5,6 +5,7 @@ import { ProfileModule } from "./profile/profile.module";
 import { UsersModule } from "./users/users.module";
 import { FieldsModule } from "./fields/fields.module";
 import { PermissionsModule } from "./permissions/permissions.module";
+import { RolesModule } from "./roles/roles.module";
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { PermissionsModule } from "./permissions/permissions.module";
     UsersModule,
     FieldsModule,
     PermissionsModule,
+    RolesModule,
   ],
 })
 export class ModuleModules {}

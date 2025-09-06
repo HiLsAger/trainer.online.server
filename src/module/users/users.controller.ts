@@ -63,7 +63,8 @@ export class UsersController {
     @Query("id") id: number = null,
   ): Promise<UserData> {
     if (id || user.id) {
-      return await this.service.updateUser(user, id);
+      const userId: number = id ? id : user.id;
+      return await this.service.updateUser(user, userId);
     }
 
     return await this.service.insertUser(user);

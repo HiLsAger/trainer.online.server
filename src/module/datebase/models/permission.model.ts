@@ -9,6 +9,7 @@ import {
   BelongsToMany,
   Column,
   DataType,
+  Default,
   Model,
   PrimaryKey,
   Table,
@@ -35,6 +36,15 @@ export class Permission extends Model<
   @AllowNull(true)
   @Column(DataType.STRING(1024))
   description: string;
+
+  @AllowNull(true)
+  @Column(DataType.STRING(255))
+  group: string;
+
+  @AllowNull(false)
+  @Default(true)
+  @Column(DataType.BOOLEAN)
+  system: boolean;
 
   @BelongsToMany(() => Role, () => RolePermission)
   roles?: NonAttribute<Role[]>;

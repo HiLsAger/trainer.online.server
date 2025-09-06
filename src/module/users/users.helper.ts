@@ -1,7 +1,7 @@
 import { User } from "../datebase/models/user.model";
-import { Body, Grid } from "./users.intefrace";
-import { Form } from "../../components/form/form.interface";
 import FormStorage from "../../storage/form.storage";
+import { Body, Grid } from "../../system/interfaces/grid.intefrace";
+import Form from "../../packages/forms/interfaces/form.interface";
 
 export default class UsersHelper {
   public static prepareUserToForm(user: User): Form {

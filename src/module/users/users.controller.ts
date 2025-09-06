@@ -17,9 +17,9 @@ import {
 import { AppAbility, Article } from "../guards/permission/casl-ability.factory";
 import usersPermissions from "../guards/permission/permissions/users.permission";
 import { AuthToken } from "../datebase/models/authTokens.model";
-import { Filter, Grid } from "./users.intefrace";
-import { Form } from "../../components/form/form.interface";
 import { UserData, UserInputForm } from "../datebase/model.inputs/user.input";
+import { Filter, Grid } from "../../system/interfaces/grid.intefrace";
+import Form from "../../packages/forms/interfaces/form.interface";
 
 @ApiTags("Работа с пользователями")
 @Controller("users")
@@ -63,7 +63,8 @@ export class UsersController {
     @Query("id") id: number = null,
   ): Promise<UserData> {
     if (id || user.id) {
-      return await this.service.updateUser(user, id);
+      const userId: number = id ? id : user.id;
+      return await this.service.updateUser(user, userId);
     }
 
     return await this.service.insertUser(user);

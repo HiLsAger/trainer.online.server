@@ -10,7 +10,7 @@ import { Reflector } from "@nestjs/core";
 import { AuthGuardService } from "../auth/auth.guard.service";
 import { FastifyRequest } from "fastify";
 import { AuthToken } from "src/module/datebase/models/authTokens.model";
-import { AuthHelper } from "src/core/helpers/auth.helper";
+import { AuthHelper } from "src/system/helpers/auth.helper";
 
 interface IPolicyHandler {
   handle(ability: AppAbility): boolean;

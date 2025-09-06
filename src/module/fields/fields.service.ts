@@ -4,6 +4,7 @@ import { User } from "../datebase/models/user.model";
 import { AuthToken } from "../datebase/models/authTokens.model";
 import PermissionService from "../guards/permission/permission.service";
 import { Role } from "../datebase/models/role.model";
+import { Permission } from "../datebase/models/permission.model";
 
 @Injectable()
 export class FieldsService {
@@ -11,6 +12,7 @@ export class FieldsService {
     @InjectModel(User) private readonly modelUser: typeof User,
     @InjectModel(AuthToken) private readonly modelAuthToken: typeof AuthToken,
     @InjectModel(Role) private readonly modelRole: typeof Role,
+    @InjectModel(Permission) private readonly modelPermission: typeof Permission,
     private readonly permissionService: PermissionService,
   ) {}
 
@@ -22,7 +24,14 @@ export class FieldsService {
             attributes: ["id", "name"],
             raw: true,
           })
-          .then((roles) => this.arrayMap(roles, "id", "name"));
+          .then((items) => this.arrayMap(items, "id", "name"));
+      case Permission.tableName:
+        return this.modelPermission
+          .findAll({
+            attributes: ["id", "name"],
+            raw: true,
+          })
+          .then((items) => this.arrayMap(items, "id", "name"));
       default:
         return [];
     }

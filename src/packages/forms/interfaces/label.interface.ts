@@ -1,13 +1,7 @@
-export interface Form {
-  title?: string;
-  labels: { [key: string]: Label };
-  action?: string;
-  method?: string;
-}
-
-export interface Label {
+export default interface Label {
   title: string;
   value?: string | number | boolean;
+  values?: string[] | number[];
   placeholder?: string;
   templateType: string;
   type?: string;
@@ -18,12 +12,12 @@ export interface Label {
   min?: number;
 }
 
-export interface loginLabels {
+export interface loginLabel {
   login: Label;
   hash: Label;
 }
 
-export interface registerLabels {
+export interface registerLabel {
   login: Label;
   hash: Label;
   name: Label;

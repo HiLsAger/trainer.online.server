@@ -119,7 +119,7 @@ module.exports = {
         AdministratorPermissionNameList,
       ),
     ];
-
+    await queryInterface.bulkDelete("roles_permissions", {});
     await queryInterface.bulkInsert("roles_permissions", rolesPermissions);
   },
 

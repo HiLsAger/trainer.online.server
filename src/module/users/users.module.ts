@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common";
 import { SequelizeModule } from "@nestjs/sequelize";
-import { User } from "../datebase/models/user.model";
-import { AuthToken } from "../datebase/models/authTokens.model";
+import { User } from "../database/models/user.model";
+import { AuthToken } from "../database/models/authTokens.model";
 import { UsersService } from "./users.service";
 import { AuthGuardService } from "../guards/auth/auth.guard.service";
 import { CaslAbilityFactory } from "../guards/permission/casl-ability.factory";

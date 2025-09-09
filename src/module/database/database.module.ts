@@ -2,14 +2,13 @@ import { Module } from "@nestjs/common";
 import { SequelizeModule } from "@nestjs/sequelize";
 import { models } from "./models";
 import { ConfigModule, ConfigService } from "@nestjs/config";
-import { config } from "rxjs";
 
 @Module({
   imports: [
     SequelizeModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: (config: ConfigService) =>  ({
+      useFactory: (config: ConfigService) => ({
         dialect: "mysql",
         host: config.get("DB_HOST"),
         port: config.get<number>("DB_PORT"),
@@ -23,4 +22,4 @@ import { config } from "rxjs";
     }),
   ],
 })
-export class DatebaseModule {}
+export class DatabaseModule {}

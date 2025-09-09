@@ -1,10 +1,10 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
-import { User } from "../datebase/models/user.model";
-import { AuthToken } from "../datebase/models/authTokens.model";
+import { User } from "../database/models/user.model";
+import { AuthToken } from "../database/models/authTokens.model";
 import PermissionService from "../guards/permission/permission.service";
-import { Role } from "../datebase/models/role.model";
-import { Permission } from "../datebase/models/permission.model";
+import { Role } from "../database/models/role.model";
+import { Permission } from "../database/models/permission.model";
 
 @Injectable()
 export class FieldsService {

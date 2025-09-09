@@ -1,4 +1,4 @@
-import { User } from "../datebase/models/user.model";
+import { User } from "../database/models/user.model";
 import FormStorage from "../../storage/form.storage";
 import { Body, Grid } from "../../system/interfaces/grid.intefrace";
 import Form from "../../packages/forms/interfaces/form.interface";

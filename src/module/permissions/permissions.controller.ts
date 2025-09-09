@@ -2,7 +2,7 @@ import { PermissionsService } from "./permissions.service";
 import { Controller, Get, Query, UseGuards } from "@nestjs/common";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import { Auth, AuthGuard } from "../guards/auth/auth.guard";
-import { AuthToken } from "../datebase/models/authTokens.model";
+import { AuthToken } from "../database/models/authTokens.model";
 import {
   Permission,
   PermissionGuard,

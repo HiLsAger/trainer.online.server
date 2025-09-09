@@ -2,7 +2,7 @@ import { RolesService } from "./roles.service";
 import { Body, Controller, Delete, Get, Post, Query, UseGuards } from "@nestjs/common";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import { Auth, AuthGuard } from "../guards/auth/auth.guard";
-import { AuthToken } from "../datebase/models/authTokens.model";
+import { AuthToken } from "../database/models/authTokens.model";
 import {
   Permission,
   PermissionGuard,
@@ -11,7 +11,7 @@ import { AppAbility, Article } from "../guards/permission/casl-ability.factory";
 import { Filter, Grid } from "../../system/interfaces/grid.intefrace";
 import Form from "../../packages/forms/interfaces/form.interface";
 import rolesPermissions from "../guards/permission/permissions/roles.permission";
-import { RoleInput } from "../datebase/model.inputs/role.input";
+import { RoleInput } from "../database/model.inputs/role.input";
 
 @ApiTags("Работа с ролями и их правами")
 @Controller("roles")

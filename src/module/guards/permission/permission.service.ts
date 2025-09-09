@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { User } from "src/module/datebase/models/user.model";
+import { User } from "src/module/database/models/user.model";
 
 @Injectable()
 export default class PermissionService {

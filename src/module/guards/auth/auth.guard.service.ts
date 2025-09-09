@@ -1,9 +1,9 @@
 import { InjectModel } from "@nestjs/sequelize";
-import { AuthToken } from "src/module/datebase/models/authTokens.model";
-import { Permission } from "src/module/datebase/models/permission.model";
-import { Role } from "src/module/datebase/models/role.model";
-import { RolePermission } from "src/module/datebase/models/rolePermission.model";
-import { User } from "src/module/datebase/models/user.model";
+import { AuthToken } from "src/module/database/models/authTokens.model";
+import { Permission } from "src/module/database/models/permission.model";
+import { Role } from "src/module/database/models/role.model";
+import { RolePermission } from "src/module/database/models/rolePermission.model";
+import { User } from "src/module/database/models/user.model";
 
 export class AuthGuardService {
   constructor(

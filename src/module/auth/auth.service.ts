@@ -1,13 +1,13 @@
 import md5 from "md5-hash";
 import {
   Injectable,
-  NotAcceptableException,
-  NotFoundException, UnauthorizedException
+  NotFoundException,
+  UnauthorizedException,
 } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
-import { User } from "../datebase/models/user.model";
-import { UserInput, UserLoginInput } from "../datebase/model.inputs/user.input";
-import { AuthToken } from "../datebase/models/authTokens.model";
+import { User } from "../database/models/user.model";
+import { UserInput, UserLoginInput } from "../database/model.inputs/user.input";
+import { AuthToken } from "../database/models/authTokens.model";
 import { authTokenResponse } from "./auth.interfaces";
 
 @Injectable()

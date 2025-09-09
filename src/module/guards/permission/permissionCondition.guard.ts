@@ -3,7 +3,7 @@ import {
   ExecutionContext,
   ForbiddenException,
 } from "@nestjs/common";
-import { AuthToken } from "src/module/datebase/models/authTokens.model";
+import { AuthToken } from "src/module/database/models/authTokens.model";
 
 export const AllowUseProperty = createParamDecorator(
   (

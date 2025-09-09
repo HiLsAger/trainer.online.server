@@ -9,7 +9,7 @@ import { AppAbility, CaslAbilityFactory } from "./casl-ability.factory";
 import { Reflector } from "@nestjs/core";
 import { AuthGuardService } from "../auth/auth.guard.service";
 import { FastifyRequest } from "fastify";
-import { AuthToken } from "src/module/datebase/models/authTokens.model";
+import { AuthToken } from "src/module/database/models/authTokens.model";
 import { AuthHelper } from "src/system/helpers/auth.helper";
 
 interface IPolicyHandler {

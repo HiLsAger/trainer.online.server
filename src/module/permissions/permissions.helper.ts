@@ -1,5 +1,5 @@
 import FormStorage from "../../storage/form.storage";
-import { Permission } from "../datebase/models/permission.model";
+import { Permission } from "../database/models/permission.model";
 import { Body, Grid } from "../../system/interfaces/grid.intefrace";
 import Form from "../../packages/forms/interfaces/form.interface";
 

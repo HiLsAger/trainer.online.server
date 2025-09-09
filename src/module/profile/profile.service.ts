@@ -4,13 +4,13 @@ import {
   NotFoundException,
 } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
-import { User } from "../datebase/models/user.model";
-import { AuthToken } from "../datebase/models/authTokens.model";
+import { User } from "../database/models/user.model";
+import { AuthToken } from "../database/models/authTokens.model";
 import { Profile } from "./profile.interface";
-import { Role } from "../datebase/models/role.model";
+import { Role } from "../database/models/role.model";
 import PermissionService from "../guards/permission/permission.service";
 import profilePermissions from "../guards/permission/permissions/profile.permission";
-import { ProfileEdit } from "../datebase/model.inputs/profile.input";
+import { ProfileEdit } from "../database/model.inputs/profile.input";
 
 @Injectable()
 export class ProfileService {

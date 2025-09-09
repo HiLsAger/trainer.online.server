@@ -1,8 +1,8 @@
 import { Module } from "@nestjs/common";
 import { SequelizeModule } from "@nestjs/sequelize";
-import { Permission } from "../datebase/models/permission.model";
-import { AuthToken } from "../datebase/models/authTokens.model";
-import { User } from "../datebase/models/user.model";
+import { Permission } from "../database/models/permission.model";
+import { AuthToken } from "../database/models/authTokens.model";
+import { User } from "../database/models/user.model";
 import { AuthGuardService } from "../guards/auth/auth.guard.service";
 import { CaslAbilityFactory } from "../guards/permission/casl-ability.factory";
 import { PermissionsController } from "./permissions.controller";

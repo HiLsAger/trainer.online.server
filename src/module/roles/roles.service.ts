@@ -1,15 +1,14 @@
 import { InjectModel } from "@nestjs/sequelize";
-import { Permission } from "../datebase/models/permission.model";
-import { AuthToken } from "../datebase/models/authTokens.model";
+import { Permission } from "../database/models/permission.model";
+import { AuthToken } from "../database/models/authTokens.model";
 import ListStorage from "../../storage/list.storage";
 import { Filter, Grid } from "../../system/interfaces/grid.intefrace";
 import RolesHelper from "./roles.helper";
 import { Injectable } from "@nestjs/common";
 import Form from "../../packages/forms/interfaces/form.interface";
-import { Role } from "../datebase/models/role.model";
-import { RoleInput } from "../datebase/model.inputs/role.input";
-import { RolePermission } from "../datebase/models/rolePermission.model";
-import { createSequelizeProviders } from "@nestjs/sequelize/dist/sequelize.providers";
+import { Role } from "../database/models/role.model";
+import { RoleInput } from "../database/model.inputs/role.input";
+import { RolePermission } from "../database/models/rolePermission.model";
 
 @Injectable()
 export class RolesService {

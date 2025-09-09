@@ -1,14 +1,14 @@
 import { Module } from "@nestjs/common";
 import { SequelizeModule } from "@nestjs/sequelize";
 import { AuthGuardService } from "../guards/auth/auth.guard.service";
-import { User } from "../datebase/models/user.model";
+import { User } from "../database/models/user.model";
 import { CaslAbilityFactory } from "../guards/permission/casl-ability.factory";
-import { AuthToken } from "../datebase/models/authTokens.model";
+import { AuthToken } from "../database/models/authTokens.model";
 import PermissionService from "../guards/permission/permission.service";
 import { FieldsController } from "./fields.controller";
 import { FieldsService } from "./fields.service";
-import { Role } from "../datebase/models/role.model";
-import { Permission } from "../datebase/models/permission.model";
+import { Role } from "../database/models/role.model";
+import { Permission } from "../database/models/permission.model";
 
 @Module({
   imports: [SequelizeModule.forFeature([User, AuthToken, Role, Permission])],

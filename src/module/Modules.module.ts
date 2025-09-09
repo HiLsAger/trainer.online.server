@@ -1,5 +1,5 @@
 import { Module } from "@nestjs/common";
-import { DatebaseModule } from "./datebase/datebase.module";
+import { DatabaseModule } from "./database/database.module";
 import { AuthModule } from "./auth/auth.module";
 import { ProfileModule } from "./profile/profile.module";
 import { UsersModule } from "./users/users.module";
@@ -9,7 +9,7 @@ import { RolesModule } from "./roles/roles.module";
 
 @Module({
   imports: [
-    DatebaseModule,
+    DatabaseModule,
     AuthModule,
     ProfileModule,
     UsersModule,

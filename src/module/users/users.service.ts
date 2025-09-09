@@ -1,11 +1,11 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
-import { User } from "../datebase/models/user.model";
-import { AuthToken } from "../datebase/models/authTokens.model";
-import { Role } from "../datebase/models/role.model";
+import { User } from "../database/models/user.model";
+import { AuthToken } from "../database/models/authTokens.model";
+import { Role } from "../database/models/role.model";
 import UsersHelper from "./users.helper";
 import ListStorage from "../../storage/list.storage";
-import { UserData, UserInputForm } from "../datebase/model.inputs/user.input";
+import { UserData, UserInputForm } from "../database/model.inputs/user.input";
 import { Filter, Grid } from "../../system/interfaces/grid.intefrace";
 import Form from "../../packages/forms/interfaces/form.interface";
 

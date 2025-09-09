@@ -3,9 +3,9 @@ import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import { FieldsService } from "./fields.service";
 import { Auth, AuthGuard } from "../guards/auth/auth.guard";
 import { PermissionGuard } from "../guards/permission/permission.guard";
-import { AuthToken } from "../datebase/models/authTokens.model";
-import { Role } from "../datebase/models/role.model";
-import { Permission } from "../datebase/models/permission.model";
+import { AuthToken } from "../database/models/authTokens.model";
+import { Role } from "../database/models/role.model";
+import { Permission } from "../database/models/permission.model";
 
 @ApiTags("Профиль")
 @Controller("fields")

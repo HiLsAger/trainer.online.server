@@ -6,7 +6,7 @@ import {
   createParamDecorator,
 } from "@nestjs/common";
 import { FastifyRequest } from "fastify";
-import { AuthToken } from "src/module/datebase/models/authTokens.model";
+import { AuthToken } from "src/module/database/models/authTokens.model";
 import { AuthGuardService } from "./auth.guard.service";
 import { AuthHelper } from "src/system/helpers/auth.helper";
 

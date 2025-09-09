@@ -7,11 +7,11 @@ import {
 } from "../guards/permission/permission.guard";
 import { AppAbility, Article } from "../guards/permission/casl-ability.factory";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
-import { AuthToken } from "../datebase/models/authTokens.model";
+import { AuthToken } from "../database/models/authTokens.model";
 import { Profile } from "./profile.interface";
 import authPermissions from "../guards/permission/permissions/auth.permission";
 import profilePermissions from "../guards/permission/permissions/profile.permission";
-import { ProfileEdit } from "../datebase/model.inputs/profile.input";
+import { ProfileEdit } from "../database/model.inputs/profile.input";
 
 @ApiTags("Профиль")
 @Controller("profile")

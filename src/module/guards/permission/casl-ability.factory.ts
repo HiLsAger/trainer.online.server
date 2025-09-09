@@ -6,7 +6,7 @@ import {
   createMongoAbility,
 } from "@casl/ability";
 import { Injectable } from "@nestjs/common";
-import { User } from "src/module/datebase/models/user.model";
+import { User } from "src/module/database/models/user.model";
 import authPermissions from "./permissions/auth.permission";
 import profilePermissions from "./permissions/profile.permission";
 import usersPermissions from "./permissions/users.permission";

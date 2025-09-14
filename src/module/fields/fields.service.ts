@@ -12,7 +12,8 @@ export class FieldsService {
     @InjectModel(User) private readonly modelUser: typeof User,
     @InjectModel(AuthToken) private readonly modelAuthToken: typeof AuthToken,
     @InjectModel(Role) private readonly modelRole: typeof Role,
-    @InjectModel(Permission) private readonly modelPermission: typeof Permission,
+    @InjectModel(Permission)
+    private readonly modelPermission: typeof Permission,
     private readonly permissionService: PermissionService,
   ) {}
 

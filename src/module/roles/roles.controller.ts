@@ -1,5 +1,13 @@
 import { RolesService } from "./roles.service";
-import { Body, Controller, Delete, Get, Post, Query, UseGuards } from "@nestjs/common";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Post,
+  Query,
+  UseGuards,
+} from "@nestjs/common";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import { Auth, AuthGuard } from "../guards/auth/auth.guard";
 import { AuthToken } from "../database/models/authTokens.model";
@@ -10,8 +18,8 @@ import {
 import { AppAbility, Article } from "../guards/permission/casl-ability.factory";
 import { Filter, Grid } from "../../system/interfaces/grid.intefrace";
 import Form from "../../packages/forms/interfaces/form.interface";
-import rolesPermissions from "../guards/permission/permissions/roles.permission";
 import { RoleInput } from "../database/model.inputs/role.input";
+import { Actions } from "../guards/permission/permissions/actionsValues";
 
 @ApiTags("Работа с ролями и их правами")
 @Controller("roles")
@@ -21,9 +29,7 @@ export class RolesController {
   @Get("grid")
   @ApiBearerAuth("Authorization")
   @UseGuards(AuthGuard, PermissionGuard)
-  @Permission((ability: AppAbility) =>
-    ability.can(rolesPermissions.GetRoles, Article),
-  )
+  @Permission((ability: AppAbility) => ability.can(Actions.GetRoles, Article))
   async grid(
     @Auth() token: AuthToken,
     @Query("limit") limit: number = 50,
@@ -36,9 +42,7 @@ export class RolesController {
   @Get("grid-item")
   @ApiBearerAuth("Authorization")
   @UseGuards(AuthGuard, PermissionGuard)
-  @Permission((ability: AppAbility) =>
-    ability.can(rolesPermissions.GetRoles, Article),
-  )
+  @Permission((ability: AppAbility) => ability.can(Actions.GetRoles, Article))
   async gridItem(
     @Auth() token: AuthToken,
     @Query("id") id: number,
@@ -50,23 +54,23 @@ export class RolesController {
   @ApiBearerAuth("Authorization")
   @UseGuards(AuthGuard, PermissionGuard)
   @Permission((ability: AppAbility) =>
-    ability.can(rolesPermissions.UpdateRoles, Article),
+    ability.can(Actions.UpdateRoles, Article),
   )
   async postRole(
     @Auth() token: AuthToken,
-    @Body() user: RoleInput,
+    @Body() role: RoleInput,
     @Query("id") id: number = null,
   ): Promise<RoleInput> {
     return id
-      ? await this.service.update(user, id)
-      : await this.service.insert(user);
+      ? await this.service.update(role, id)
+      : await this.service.insert(role);
   }
 
   @Delete("delete")
   @ApiBearerAuth("Authorization")
   @UseGuards(AuthGuard, PermissionGuard)
   @Permission((ability: AppAbility) =>
-    ability.can(rolesPermissions.DeleteRoles, Article),
+    ability.can(Actions.DeleteRoles, Article),
   )
   async delete(
     @Auth() token: AuthToken,

@@ -19,7 +19,7 @@ import {
 } from "../guards/permission/permission.guard";
 import { AppAbility, Article } from "../guards/permission/casl-ability.factory";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
-import authPermissions from "../guards/permission/permissions/auth.permission";
+import { Actions } from "../guards/permission/permissions/actionsValues";
 
 @ApiTags("Авторизация")
 @Controller("auth")
@@ -29,9 +29,7 @@ export class AuthController {
   @Get("user")
   @ApiBearerAuth("Authorization")
   @UseGuards(AuthGuard, PermissionGuard)
-  @Permission((ability: AppAbility) =>
-    ability.can(authPermissions.GetUser, Article),
-  )
+  @Permission((ability: AppAbility) => ability.can(Actions.GetUser, Article))
   async user(
     @Auth()
     token: AuthToken,

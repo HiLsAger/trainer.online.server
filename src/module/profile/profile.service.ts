@@ -9,8 +9,8 @@ import { AuthToken } from "../database/models/authTokens.model";
 import { Profile } from "./profile.interface";
 import { Role } from "../database/models/role.model";
 import PermissionService from "../guards/permission/permission.service";
-import profilePermissions from "../guards/permission/permissions/profile.permission";
 import { ProfileEdit } from "../database/model.inputs/profile.input";
+import { Actions } from "../guards/permission/permissions/actionsValues";
 
 @Injectable()
 export class ProfileService {
@@ -28,11 +28,7 @@ export class ProfileService {
   async editProfileInfo(user: User, body: ProfileEdit): Promise<Profile> {
     if (
       body.userId &&
-      !this.permissionService.validateCondition(
-        user,
-        profilePermissions.EditStatus,
-        "%",
-      )
+      !this.permissionService.validateCondition(user, Actions.EditStatus, "%")
     ) {
       throw new ForbiddenException(
         "Не достаточный уровень доступа, для редактирования чюжой зааписи",

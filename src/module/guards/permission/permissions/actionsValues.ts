@@ -1,15 +1,25 @@
-import authPermissions from "./auth.permission";
-import profilePermissions from "./profile.permission";
-import usersPermissions from "./users.permission";
-import permissionsPermissions from "./permissions.permission";
-import rolesPermissions from "./roles.permission";
+export enum Actions {
+  GetUser = "getUser",
+  GetPermissions = "getPermissions",
+  UpdatePermissions = "updatePermissions",
+  DeletePermissions = "deletePermissions",
+  EditStatus = "editStatus",
+  GetRoles = "getRoles",
+  UpdateRoles = "updateRoles",
+  DeleteRoles = "deleteRoles",
+  GetStyles = "getStyles",
+  UpdateStyles = "updateStyles",
+  DeleteStyles = "deleteStyles",
+  GetTrainings = "getTrainings",
+  UpdateTrainings = "updateTrainings",
+  DeleteTrainings = "deleteTrainings",
+  GetUsers = "getUsers",
+  UpdateUser = "updateUser",
+  DeleteUser = "deleteUser",
+}
 
 const actionsValues = {
-  ...authPermissions,
-  ...profilePermissions,
-  ...usersPermissions,
-  ...permissionsPermissions,
-  ...rolesPermissions,
+  ...Actions,
 };
 
 export default actionsValues;

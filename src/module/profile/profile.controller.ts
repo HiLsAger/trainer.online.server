@@ -9,9 +9,8 @@ import { AppAbility, Article } from "../guards/permission/casl-ability.factory";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import { AuthToken } from "../database/models/authTokens.model";
 import { Profile } from "./profile.interface";
-import authPermissions from "../guards/permission/permissions/auth.permission";
-import profilePermissions from "../guards/permission/permissions/profile.permission";
 import { ProfileEdit } from "../database/model.inputs/profile.input";
+import { Actions } from "../guards/permission/permissions/actionsValues";
 
 @ApiTags("Профиль")
 @Controller("profile")
@@ -21,9 +20,7 @@ export class ProfileController {
   @Get("info")
   @ApiBearerAuth("Authorization")
   @UseGuards(AuthGuard, PermissionGuard)
-  @Permission((ability: AppAbility) =>
-    ability.can(authPermissions.GetUser, Article),
-  )
+  @Permission((ability: AppAbility) => ability.can(Actions.GetUser, Article))
   async info(
     @Auth() token: AuthToken,
     @Query("login") login: string,
@@ -34,8 +31,7 @@ export class ProfileController {
   @Post("info")
   @ApiBearerAuth("Authorization")
   @UseGuards(AuthGuard, PermissionGuard)
-  @Permission((ability: AppAbility) =>
-    ability.can(profilePermissions.EditStatus, Article),
+  @Permission((ability: AppAbility) => ability.can(Actions.EditStatus, Article),
   )
   async editInfo(
     @Auth() token: AuthToken,

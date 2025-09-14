@@ -1,27 +1,23 @@
-// Complete
-import {
-  InferAttributes,
-  InferCreationAttributes,
-  Model,
-  NonAttribute,
-} from "sequelize";
+import { InferAttributes, InferCreationAttributes } from "sequelize";
 import {
   AllowNull,
-  AutoIncrement,
+  AutoIncrement, BelongsTo,
   Column,
-  DataType,
-  HasMany,
+  DataType, ForeignKey,
+  Model,
   PrimaryKey,
   Table,
-  Unique,
+  Unique
 } from "sequelize-typescript";
-import { Schedule } from "./schedule.model";
+import { User } from "./user.model";
+import { Style } from "./style.model";
 
 @Table({
   tableName: "trainings",
   createdAt: "created_at",
   updatedAt: "updated_at",
   deletedAt: "deleted_at",
+  paranoid: true,
 })
 export class Training extends Model<
   InferAttributes<Training>,
@@ -45,6 +41,11 @@ export class Training extends Model<
   @Column(DataType.STRING(7))
   color: string;
 
-  @HasMany(() => Schedule)
-  schedules?: NonAttribute<Schedule[]>;
+  @ForeignKey(() => Style)
+  @AllowNull(true)
+  @Column(DataType.INTEGER)
+  style_id: number;
+
+  @BelongsTo(() => Style)
+  style: Style;
 }

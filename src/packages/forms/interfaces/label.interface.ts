@@ -10,6 +10,7 @@ export default interface Label {
   list?: string | object;
   max?: number;
   min?: number;
+  size?: number;
 }
 
 export interface loginLabel {

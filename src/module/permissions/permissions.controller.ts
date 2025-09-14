@@ -8,9 +8,9 @@ import {
   PermissionGuard,
 } from "../guards/permission/permission.guard";
 import { AppAbility, Article } from "../guards/permission/casl-ability.factory";
-import permissionsPermissions from "../guards/permission/permissions/permissions.permission";
 import { Filter, Grid } from "../../system/interfaces/grid.intefrace";
 import Form from "../../packages/forms/interfaces/form.interface";
+import { Actions } from "../guards/permission/permissions/actionsValues";
 
 @ApiTags("работа с правами")
 @Controller("permissions")
@@ -21,7 +21,7 @@ export class PermissionsController {
   @ApiBearerAuth("Authorization")
   @UseGuards(AuthGuard, PermissionGuard)
   @Permission((ability: AppAbility) =>
-    ability.can(permissionsPermissions.GetPermissions, Article),
+    ability.can(Actions.GetPermissions, Article),
   )
   async grid(
     @Auth() token: AuthToken,
@@ -36,7 +36,7 @@ export class PermissionsController {
   @ApiBearerAuth("Authorization")
   @UseGuards(AuthGuard, PermissionGuard)
   @Permission((ability: AppAbility) =>
-    ability.can(permissionsPermissions.GetPermissions, Article),
+    ability.can(Actions.GetPermissions, Article),
   )
   async gridItem(
     @Auth() token: AuthToken,

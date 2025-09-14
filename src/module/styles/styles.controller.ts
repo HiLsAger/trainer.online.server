@@ -1,14 +1,14 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Post,
-  Delete,
   Query,
   UseGuards,
 } from "@nestjs/common";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
-import { UsersService } from "./users.service";
+import StylesService from "./styles.service";
 import { Auth, AuthGuard } from "../guards/auth/auth.guard";
 import {
   Permission,
@@ -16,62 +16,64 @@ import {
 } from "../guards/permission/permission.guard";
 import { AppAbility, Article } from "../guards/permission/casl-ability.factory";
 import { AuthToken } from "../database/models/authTokens.model";
-import { UserData, UserInputForm } from "../database/model.inputs/user.input";
 import { Filter, Grid } from "../../system/interfaces/grid.intefrace";
 import Form from "../../packages/forms/interfaces/form.interface";
+import { StyleInput } from "../database/model.inputs/style.input";
 import { Actions } from "../guards/permission/permissions/actionsValues";
 
-@ApiTags("Работа с пользователями")
-@Controller("users")
-export class UsersController {
-  constructor(private readonly service: UsersService) {}
+@ApiTags("Работа с тренировками")
+@Controller("styles")
+export default class StylesController {
+  constructor(private readonly service: StylesService) {}
 
   @Get("grid")
   @ApiBearerAuth("Authorization")
   @UseGuards(AuthGuard, PermissionGuard)
-  @Permission((ability: AppAbility) => ability.can(Actions.GetUsers, Article))
+  @Permission((ability: AppAbility) => ability.can(Actions.GetStyles, Article))
   async grid(
     @Auth() token: AuthToken,
     @Query("limit") limit: number = 50,
     @Query("page") page: number = 1,
     @Query("filters") filters: Filter | null,
   ): Promise<Grid> {
-    return this.service.getUsersGrid(limit, page, filters);
+    return this.service.getGrid(limit, page, filters);
   }
 
-  @Get("user")
+  @Get("style")
   @ApiBearerAuth("Authorization")
   @UseGuards(AuthGuard, PermissionGuard)
-  @Permission((ability: AppAbility) => ability.can(Actions.GetUsers, Article))
-  async user(@Auth() token: AuthToken, @Query("id") id: number): Promise<Form> {
-    return this.service.getUsersForm(id);
-  }
-
-  @Post("user")
-  @ApiBearerAuth("Authorization")
-  @UseGuards(AuthGuard, PermissionGuard)
-  @Permission((ability: AppAbility) => ability.can(Actions.UpdateUser, Article))
-  async updateUser(
+  @Permission((ability: AppAbility) => ability.can(Actions.GetStyles, Article))
+  async gridItem(
     @Auth() token: AuthToken,
-    @Body() user: UserInputForm,
-    @Query("id") id: number = null,
-  ): Promise<UserData> {
-    if (id || user.id) {
-      const userId: number = id ? id : user.id;
-      return await this.service.updateUser(user, userId);
-    }
-
-    return await this.service.insertUser(user);
+    @Query("id") id: number,
+  ): Promise<Form> {
+    return this.service.getForm(id);
   }
 
-  @Delete("delete")
+  @Post("style")
   @ApiBearerAuth("Authorization")
   @UseGuards(AuthGuard, PermissionGuard)
-  @Permission((ability: AppAbility) => ability.can(Actions.DeleteUser, Article))
-  async deleteUser(
+  @Permission((ability: AppAbility) =>
+    ability.can(Actions.UpdateStyles, Article),
+  )
+  async postRole(
+    @Auth() token: AuthToken,
+    @Body() style: StyleInput,
+    @Query("id") id: number = null,
+  ): Promise<StyleInput> {
+    return await this.service.upsert(style, id);
+  }
+
+  @Delete("style")
+  @ApiBearerAuth("Authorization")
+  @UseGuards(AuthGuard, PermissionGuard)
+  @Permission((ability: AppAbility) =>
+    ability.can(Actions.DeleteStyles, Article),
+  )
+  async delete(
     @Auth() token: AuthToken,
     @Query("id") id: number,
   ): Promise<string> {
-    return await this.service.deleteUser(id);
+    return await this.service.delete(id);
   }
 }

@@ -8,6 +8,7 @@ import { PermissionsModule } from "./permissions/permissions.module";
 import { RolesModule } from "./roles/roles.module";
 import { TrainingsModule } from "./trainings/trainings.module";
 import { StylesModule } from "./styles/styles.module";
+import ApiModule from "./api/api.module";
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { StylesModule } from "./styles/styles.module";
     RolesModule,
     TrainingsModule,
     StylesModule,
+    ApiModule,
   ],
 })
 export class ModuleModules {}

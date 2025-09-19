@@ -37,10 +37,6 @@ export class Training extends Model<
   @Column(DataType.STRING(512))
   description: string;
 
-  @AllowNull(false)
-  @Column(DataType.STRING(7))
-  color: string;
-
   @ForeignKey(() => Style)
   @AllowNull(true)
   @Column(DataType.INTEGER)

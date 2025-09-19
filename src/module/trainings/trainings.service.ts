@@ -7,12 +7,14 @@ import ListStorage from "../../storage/list.storage";
 import Form from "../../packages/forms/interfaces/form.interface";
 import TrainingsHelper from "./trainings.helper";
 import { TrainingInput } from "../database/model.inputs/training.input";
+import { Style } from "../database/models/style.model";
 
 @Injectable()
 export default class TrainingsService {
   constructor(
-    @InjectModel(Training) private readonly modelTraining: typeof Training,
-    @InjectModel(AuthToken) private readonly modelAuthToken: typeof AuthToken,
+    @InjectModel(Training) protected readonly modelTraining: typeof Training,
+    @InjectModel(AuthToken) protected readonly modelAuthToken: typeof AuthToken,
+    protected readonly trainingHelper: TrainingsHelper,
   ) {}
 
   public async getGrid(
@@ -28,9 +30,12 @@ export default class TrainingsService {
       attributes: ["id", "name", "description"],
       offset: (page - 1) * limit,
       limit: Number(limit),
+      include: {
+        model: Style,
+      },
     });
 
-    return TrainingsHelper.prepareToGrid(items);
+    return this.trainingHelper.prepareToGrid(items);
   }
 
   public async getForm(id: number): Promise<Form> {
@@ -61,6 +66,7 @@ export default class TrainingsService {
     const model = await this.modelTraining.create({
       name: data.name,
       description: data.description,
+      style_id: data.style_id,
     });
 
     return TrainingsHelper.prepareData(model);

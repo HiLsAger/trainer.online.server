@@ -3,8 +3,14 @@ import { Body, Grid } from "../../system/interfaces/grid.intefrace";
 import Form from "../../packages/forms/interfaces/form.interface";
 import { Training } from "../database/models/training.model";
 import { TrainingInput } from "../database/model.inputs/training.input";
+import { Flags } from "../../packages/forms/interfaces/label.interface";
+import { Injectable } from "@nestjs/common";
+import ApiFacade from "../api/api.facade";
 
+@Injectable()
 export default class TrainingsHelper {
+  constructor(protected readonly api: ApiFacade) {}
+
   public static prepareToForm(training: Training): Form {
     return {
       title: `Редактировать ${training.name}`,
@@ -24,25 +30,34 @@ export default class TrainingsHelper {
           templateType: FormStorage.templateTypeText,
           value: training.description,
         },
+        role_id: {
+          placeholder: "Стили",
+          templateType: FormStorage.templateTypeSelectAdvanced,
+          list: "fields/styles",
+          title: "Стили",
+          type: "text",
+          flags: [Flags.AS_HTML],
+        },
       },
       method: "POST",
       action: `trainings/training?id=${training.id}`,
     } as Form;
   }
 
-  public static prepareToGrid(trainings: Training[]): Grid {
+  public prepareToGrid(trainings: Training[]): Grid {
     return {
       head: ["Id", "Название", "Описание", "Цвет"],
       body: trainings.map((training) => this.prepareToBody(training)),
     } as unknown as Grid;
   }
 
-  protected static prepareToBody(training: Training): Body {
+  protected prepareToBody(training: Training): Body {
     return {
       columns: [
         training.id,
         training.name,
         training.description,
+        this.api.styles.prepareStyleToTag(training.style),
         [
           {
             title: "Удалить",
@@ -65,6 +80,7 @@ export default class TrainingsHelper {
     return {
       name: training.name,
       description: training.description,
+      style_id: training.style_id,
     };
   }
 }

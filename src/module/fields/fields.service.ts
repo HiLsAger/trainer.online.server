@@ -5,16 +5,20 @@ import { AuthToken } from "../database/models/authTokens.model";
 import PermissionService from "../guards/permission/permission.service";
 import { Role } from "../database/models/role.model";
 import { Permission } from "../database/models/permission.model";
+import ApiFacade from "../api/api.facade";
+import StyleBuilder from "../api/styles/style.builder";
 
 @Injectable()
 export class FieldsService {
   constructor(
-    @InjectModel(User) private readonly modelUser: typeof User,
-    @InjectModel(AuthToken) private readonly modelAuthToken: typeof AuthToken,
-    @InjectModel(Role) private readonly modelRole: typeof Role,
+    @InjectModel(User) protected readonly modelUser: typeof User,
+    @InjectModel(AuthToken) protected readonly modelAuthToken: typeof AuthToken,
+    @InjectModel(Role) protected readonly modelRole: typeof Role,
     @InjectModel(Permission)
-    private readonly modelPermission: typeof Permission,
-    private readonly permissionService: PermissionService,
+    protected readonly modelPermission: typeof Permission,
+    protected readonly permissionService: PermissionService,
+    protected readonly api: ApiFacade,
+    protected readonly styleBuilder: StyleBuilder,
   ) {}
 
   public async getData(table: string): Promise<object> {
@@ -50,5 +54,17 @@ export class FieldsService {
     });
 
     return result;
+  }
+
+  public async getStyles(): Promise<Record<string, string>> {
+    const styleInfoList = await this.api.styles.getBuildStyles();
+
+    const styles: Record<string, string> = {};
+    styleInfoList.forEach((styleInfo) => {
+      styles[styleInfo.id] =
+        this.styleBuilder.buildStyleHtmlFromStyleInfo(styleInfo);
+    });
+
+    return styles;
   }
 }

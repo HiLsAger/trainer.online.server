@@ -11,6 +11,11 @@ export default interface Label {
   max?: number;
   min?: number;
   size?: number;
+  flags?: Flags[];
+}
+
+export enum Flags {
+  AS_HTML = "as_html",
 }
 
 export interface loginLabel {

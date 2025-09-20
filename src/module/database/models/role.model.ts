@@ -44,6 +44,11 @@ export class Role extends Model<
   @Column(DataType.STRING(1024))
   description?: string | null;
 
+  @AllowNull(true)
+  @Default(0)
+  @Column(DataType.INTEGER)
+  type?: number | null;
+
   @AllowNull(false)
   @Default(false)
   @Column(DataType.BOOLEAN)

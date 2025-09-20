@@ -31,7 +31,7 @@ export class RolesService {
       limit <= ListStorage.maxListItems ? limit : ListStorage.maxListItems;
 
     const items = await Role.findAll({
-      attributes: ["id", "name", "description"],
+      attributes: ["id", "name", "type", "description"],
       offset: (page - 1) * limit,
       limit: Number(limit),
     });
@@ -41,7 +41,7 @@ export class RolesService {
 
   public async getForm(id: number): Promise<Form> {
     const item = await Role.findOne({
-      attributes: ["id", "name", "description"],
+      attributes: ["id", "name", "type", "description"],
       where: { id: id },
       include: {
         model: Permission,
@@ -57,6 +57,7 @@ export class RolesService {
     await role.update({
       name: data.name,
       description: data.description,
+      type: data.type,
     });
 
     await this.modelRolePermission.destroy({
@@ -72,6 +73,7 @@ export class RolesService {
     const role = await this.modelRole.create({
       name: data.name,
       description: data.description,
+      type: data.type,
     });
 
     await this.createRolesPermissions(role.id, data.permissions);

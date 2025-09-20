@@ -6,7 +6,6 @@ import { PermissionGuard } from "../guards/permission/permission.guard";
 import { AuthToken } from "../database/models/authTokens.model";
 import { Role } from "../database/models/role.model";
 import { Permission } from "../database/models/permission.model";
-import { Style } from "../database/models/style.model";
 
 @ApiTags("Профиль")
 @Controller("fields")
@@ -16,21 +15,28 @@ export class FieldsController {
   @Get("roles")
   @ApiBearerAuth("Authorization")
   @UseGuards(AuthGuard, PermissionGuard)
-  async getRoles(@Auth() token: AuthToken): Promise<object> {
+  async getRoles(@Auth() token: AuthToken): Promise<Record<string, string>> {
     return this.service.getData(Role.tableName);
   }
 
   @Get("permissions")
   @ApiBearerAuth("Authorization")
   @UseGuards(AuthGuard, PermissionGuard)
-  async getPermissions(@Auth() token: AuthToken): Promise<object> {
+  async getPermissions(@Auth() token: AuthToken): Promise<Record<string, string>> {
     return this.service.getData(Permission.tableName);
   }
 
   @Get("styles")
   @ApiBearerAuth("Authorization")
   @UseGuards(AuthGuard, PermissionGuard)
-  async getStyles(@Auth() token: AuthToken): Promise<object> {
+  async getStyles(@Auth() token: AuthToken): Promise<Record<string, string>> {
     return this.service.getStyles();
+  }
+
+  @Get("trainers")
+  @ApiBearerAuth("Authorization")
+  @UseGuards(AuthGuard, PermissionGuard)
+  async getTrainerList(@Auth() token: AuthToken): Promise<Record<string, string>> {
+    return this.service.getTrainers();
   }
 }

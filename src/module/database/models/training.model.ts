@@ -1,16 +1,18 @@
 import { InferAttributes, InferCreationAttributes } from "sequelize";
 import {
   AllowNull,
-  AutoIncrement, BelongsTo,
+  AutoIncrement,
+  BelongsTo,
   Column,
-  DataType, ForeignKey,
+  DataType,
+  ForeignKey,
   Model,
   PrimaryKey,
   Table,
-  Unique
+  Unique,
 } from "sequelize-typescript";
-import { User } from "./user.model";
 import { Style } from "./style.model";
+import { User } from "./user.model";
 
 @Table({
   tableName: "trainings",
@@ -36,6 +38,14 @@ export class Training extends Model<
   @AllowNull(true)
   @Column(DataType.STRING(512))
   description: string;
+
+  @ForeignKey(() => User)
+  @AllowNull(true)
+  @Column(DataType.INTEGER)
+  trainer_id: number;
+
+  @BelongsTo(() => User)
+  Trainer: User;
 
   @ForeignKey(() => Style)
   @AllowNull(true)

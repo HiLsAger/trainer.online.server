@@ -30,7 +30,13 @@ export default class TrainingsHelper {
           templateType: FormStorage.templateTypeText,
           value: training.description,
         },
-        role_id: {
+        trainer_id: {
+          placeholder: "Тренер",
+          templateType: FormStorage.templateTypeSelect,
+          list: "fields/trainers",
+          title: "Тренер",
+        },
+        style_id: {
           placeholder: "Стили",
           templateType: FormStorage.templateTypeSelectAdvanced,
           list: "fields/styles",

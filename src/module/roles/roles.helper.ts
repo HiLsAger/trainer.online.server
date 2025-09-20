@@ -3,6 +3,7 @@ import { Body, Grid } from "../../system/interfaces/grid.intefrace";
 import Form from "../../packages/forms/interfaces/form.interface";
 import { Role } from "../database/models/role.model";
 import { RoleInput } from "../database/model.inputs/role.input";
+import RoleTypeStorage from "../../storage/roleType.storage";
 
 export default class RolesHelper {
   public static prepareToForm(role: Role): Form {
@@ -24,6 +25,14 @@ export default class RolesHelper {
           templateType: FormStorage.templateTypeText,
           value: role.description,
         },
+        type: {
+          title: "Тип",
+          placeholder: "Тип",
+          type: "text",
+          templateType: FormStorage.templateTypeSelect,
+          value: role.type ?? 0,
+          list: RoleTypeStorage.TYPE_LIST,
+        },
         permissions: {
           title: "Права",
           placeholder: "Описание",
@@ -40,7 +49,7 @@ export default class RolesHelper {
 
   public static prepareToGrid(roles: Role[]): Grid {
     return {
-      head: ["Id", "Название", "Описание", "Действия"],
+      head: ["Id", "Название", "Тип", "Описание", "Действия"],
       body: roles.map((role) => this.prepareToBody(role)),
     } as unknown as Grid;
   }
@@ -50,6 +59,7 @@ export default class RolesHelper {
       columns: [
         role.id,
         role.name,
+        RoleTypeStorage.getTypeNameByCode(role.type),
         role.description,
         [
           {
@@ -73,6 +83,7 @@ export default class RolesHelper {
     return {
       name: role.name,
       description: role.description,
+      type: role.type,
       permissions: role.permissions.map((permission) => permission.id),
     };
   }

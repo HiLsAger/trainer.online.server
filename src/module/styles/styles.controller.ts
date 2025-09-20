@@ -21,7 +21,7 @@ import Form from "../../packages/forms/interfaces/form.interface";
 import { StyleInput } from "../database/model.inputs/style.input";
 import { Actions } from "../guards/permission/permissions/actionsValues";
 
-@ApiTags("Работа с тренировками")
+@ApiTags("Работа со стилями")
 @Controller("styles")
 export default class StylesController {
   constructor(private readonly service: StylesService) {}

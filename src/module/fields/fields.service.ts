@@ -2,7 +2,6 @@ import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
 import { User } from "../database/models/user.model";
 import { AuthToken } from "../database/models/authTokens.model";
-import PermissionService from "../guards/permission/permission.service";
 import { Role } from "../database/models/role.model";
 import { Permission } from "../database/models/permission.model";
 import ApiFacade from "../api/api.facade";
@@ -16,12 +15,11 @@ export class FieldsService {
     @InjectModel(Role) protected readonly modelRole: typeof Role,
     @InjectModel(Permission)
     protected readonly modelPermission: typeof Permission,
-    protected readonly permissionService: PermissionService,
     protected readonly api: ApiFacade,
     protected readonly styleBuilder: StyleBuilder,
   ) {}
 
-  public async getData(table: string): Promise<object> {
+  public async getData(table: string): Promise<Record<string, string>> {
     switch (table) {
       case Role.tableName:
         return this.modelRole
@@ -38,7 +36,7 @@ export class FieldsService {
           })
           .then((items) => this.arrayMap(items, "id", "name"));
       default:
-        return [];
+        return {};
     }
   }
 
@@ -66,5 +64,9 @@ export class FieldsService {
     });
 
     return styles;
+  }
+
+  public async getTrainers(): Promise<Record<string, string>> {
+    return this.api.users.getTrainers();
   }
 }

@@ -9,6 +9,7 @@ import { RolesModule } from "./roles/roles.module";
 import { TrainingsModule } from "./trainings/trainings.module";
 import { StylesModule } from "./styles/styles.module";
 import ApiModule from "./api/api.module";
+import TrainingRoomsModule from "./trainingRooms/trainingRooms.module";
 
 @Module({
   imports: [
@@ -22,6 +23,8 @@ import ApiModule from "./api/api.module";
     TrainingsModule,
     StylesModule,
     ApiModule,
+    TrainingsModule,
+    TrainingRoomsModule,
   ],
 })
 export class ModuleModules {}

@@ -7,15 +7,18 @@ import {
 import {
   AllowNull,
   AutoIncrement,
+  BelongsTo,
   Column,
   DataType,
+  ForeignKey,
   HasMany,
   Model,
   PrimaryKey,
   Table,
   Unique,
 } from "sequelize-typescript";
-import { Schedule } from "./schedule.model";
+import { Training } from "./training.model";
+import { Style } from "./style.model";
 
 @Table({
   tableName: "training_rooms",
@@ -45,10 +48,14 @@ export class TrainingRoom extends Model<
   @Column(DataType.INTEGER)
   sort: number;
 
-  @AllowNull(false)
-  @Column(DataType.STRING(7))
-  color: string;
+  @ForeignKey(() => Style)
+  @AllowNull(true)
+  @Column(DataType.INTEGER)
+  style_id: number;
 
-  @HasMany(() => Schedule)
-  schedules?: NonAttribute<Schedule[]>;
+  @BelongsTo(() => Style)
+  style: Style;
+
+  // @HasMany(() => Schedule)
+  // schedules?: NonAttribute<Schedule[]>;
 }

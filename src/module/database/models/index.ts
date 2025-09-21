@@ -7,6 +7,7 @@ import { Schedule } from "./schedule.model";
 import { ModelCtor } from "sequelize-typescript";
 import { Training } from "./training.model";
 import { Style } from "./style.model";
+import { TrainingRoom } from "./trainingRoom.model";
 
 export const models = [
   User,
@@ -16,5 +17,6 @@ export const models = [
   Permission,
   Schedule,
   Training,
+  TrainingRoom,
   Style,
 ] as ModelCtor[];

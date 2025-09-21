@@ -13,6 +13,7 @@ import {
 } from "sequelize-typescript";
 import { Style } from "./style.model";
 import { User } from "./user.model";
+import { TrainingRoom } from "./trainingRoom.model";
 
 @Table({
   tableName: "trainings",
@@ -45,7 +46,7 @@ export class Training extends Model<
   trainer_id: number;
 
   @BelongsTo(() => User)
-  Trainer: User;
+  trainer: User;
 
   @ForeignKey(() => Style)
   @AllowNull(true)

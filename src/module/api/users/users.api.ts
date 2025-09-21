@@ -4,13 +4,16 @@ import { InjectModel } from "@nestjs/sequelize";
 import { User } from "../../database/models/user.model";
 import RoleTypeStorage from "../../../storage/roleType.storage";
 import { Role } from "../../database/models/role.model";
+import ApiAbstract from "../api.abstract";
 
 @Injectable()
-export default class UsersApi {
+export default class UsersApi extends ApiAbstract {
   constructor(
     @Inject(forwardRef(() => ApiFacade)) protected api: ApiFacade,
     @InjectModel(User) protected readonly userModel: typeof User,
-  ) {}
+  ) {
+    super();
+  }
 
   public async getTrainers(): Promise<Record<string, string>> {
     return this.userModel
@@ -22,19 +25,5 @@ export default class UsersApi {
         },
       })
       .then((users) => this.arrayMap(users, "id", "name"));
-  }
-
-  protected arrayMap(
-    data: object[],
-    index: string,
-    value: string,
-  ): Record<string, string> {
-    const result: Record<string, string> = {};
-
-    data.forEach((item: Record<string, any>) => {
-      result[item[index]] = item[value];
-    });
-
-    return result;
   }
 }

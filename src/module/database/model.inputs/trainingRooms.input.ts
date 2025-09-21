@@ -1,10 +1,10 @@
 import { CreationAttributes } from "sequelize";
 import { ApiProperty } from "@nestjs/swagger";
 import { IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
-import { Training } from "../models/training.model";
 import { Transform } from "class-transformer";
+import { TrainingRoom } from "../models/trainingRoom.model";
 
-export class TrainingInput implements CreationAttributes<Training> {
+export class TrainingRoomsInput implements CreationAttributes<TrainingRoom> {
   @ApiProperty({ description: "Наименование" })
   @IsString()
   @IsNotEmpty()
@@ -15,11 +15,10 @@ export class TrainingInput implements CreationAttributes<Training> {
   @IsOptional()
   description: string;
 
-  @ApiProperty({ description: "Тренер" })
+  @ApiProperty({ description: "Порядок сортировки" })
   @IsNumber()
-  @Transform(({ value }) => (value ? Number(value) : null))
-  @IsNotEmpty()
-  trainer_id: number;
+  @IsOptional()
+  sort: number;
 
   @ApiProperty({ description: "Стиль" })
   @IsNumber()

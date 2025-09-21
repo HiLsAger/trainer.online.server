@@ -23,7 +23,10 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.removeConstraint("trainings", "fk_trainings_trainer_id");
+    await queryInterface.removeConstraint(
+      "trainings",
+      "fk_trainings_trainer_id",
+    );
 
     await queryInterface.removeColumn("trainings", "trainer_id");
   },

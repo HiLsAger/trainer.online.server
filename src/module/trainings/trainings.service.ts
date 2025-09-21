@@ -8,6 +8,7 @@ import Form from "../../packages/forms/interfaces/form.interface";
 import TrainingsHelper from "./trainings.helper";
 import { TrainingInput } from "../database/model.inputs/training.input";
 import { Style } from "../database/models/style.model";
+import { User } from "../database/models/user.model";
 
 @Injectable()
 export default class TrainingsService {
@@ -27,12 +28,10 @@ export default class TrainingsService {
       limit <= ListStorage.maxListItems ? limit : ListStorage.maxListItems;
 
     const items = await Training.findAll({
-      attributes: ["id", "name", "description"],
+      attributes: ["id", "name", "trainer_id", "description"],
       offset: (page - 1) * limit,
       limit: Number(limit),
-      include: {
-        model: Style,
-      },
+      include: [{ model: Style }, { model: User, attributes: ["name"] }],
     });
 
     return this.trainingHelper.prepareToGrid(items);
@@ -40,7 +39,7 @@ export default class TrainingsService {
 
   public async getForm(id: number): Promise<Form> {
     const item = await Training.findOne({
-      attributes: ["id", "name", "description"],
+      attributes: ["id", "name", "trainer_id", "description"],
       where: { id: id },
     });
 
@@ -51,12 +50,17 @@ export default class TrainingsService {
     return await (id ? this.update(data, id) : this.insert(data));
   }
 
-  protected async update(data: TrainingInput, id: number): Promise<TrainingInput> {
+  protected async update(
+    data: TrainingInput,
+    id: number,
+  ): Promise<TrainingInput> {
     const model = await this.getModel(id);
 
     await model.update({
       name: data.name,
       description: data.description,
+      trainer_id: data.trainer_id,
+      style_id: data.style_id,
     });
 
     return TrainingsHelper.prepareData(model);
@@ -66,6 +70,7 @@ export default class TrainingsService {
     const model = await this.modelTraining.create({
       name: data.name,
       description: data.description,
+      trainer_id: data.trainer_id,
       style_id: data.style_id,
     });
 

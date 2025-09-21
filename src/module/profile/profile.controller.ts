@@ -31,8 +31,7 @@ export class ProfileController {
   @Post("info")
   @ApiBearerAuth("Authorization")
   @UseGuards(AuthGuard, PermissionGuard)
-  @Permission((ability: AppAbility) => ability.can(Actions.EditStatus, Article),
-  )
+  @Permission((ability: AppAbility) => ability.can(Actions.EditStatus, Article))
   async editInfo(
     @Auth() token: AuthToken,
     @Body() body: ProfileEdit,

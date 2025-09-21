@@ -1,19 +1,19 @@
 import FormStorage from "../../storage/form.storage";
 import { Body, Grid } from "../../system/interfaces/grid.intefrace";
 import Form from "../../packages/forms/interfaces/form.interface";
-import { Training } from "../database/models/training.model";
-import { TrainingInput } from "../database/model.inputs/training.input";
 import { Flags } from "../../packages/forms/interfaces/label.interface";
 import { Injectable } from "@nestjs/common";
 import ApiFacade from "../api/api.facade";
+import { TrainingRoom } from "../database/models/trainingRoom.model";
+import { TrainingRoomsInput } from "../database/model.inputs/trainingRooms.input";
 
 @Injectable()
-export default class TrainingsHelper {
+export default class TrainingRoomsHelper {
   constructor(protected readonly api: ApiFacade) {}
 
-  public static prepareToForm(training: Training): Form {
+  public prepareToForm(model: TrainingRoom): Form {
     return {
-      title: `Редактировать ${training.name}`,
+      title: `Редактировать ${model.name}`,
       labels: {
         name: {
           title: "Название",
@@ -21,21 +21,14 @@ export default class TrainingsHelper {
           type: "text",
           templateType: FormStorage.templateTypeText,
           required: true,
-          value: training.name,
+          value: model.name,
         },
         description: {
           title: "Описание",
           placeholder: "Описание",
           type: "text",
           templateType: FormStorage.templateTypeText,
-          value: training.description,
-        },
-        trainer_id: {
-          placeholder: "Тренер",
-          templateType: FormStorage.templateTypeSelect,
-          list: "fields/trainers",
-          title: "Тренер",
-          value: training.trainer_id,
+          value: model.description,
         },
         style_id: {
           placeholder: "Стили",
@@ -47,48 +40,47 @@ export default class TrainingsHelper {
         },
       },
       method: "POST",
-      action: `trainings/training?id=${training.id}`,
+      action: `training-rooms/room?id=${model.id}`,
     } as Form;
   }
 
-  public prepareToGrid(trainings: Training[]): Grid {
+  public prepareToGrid(models: TrainingRoom[]): Grid {
     return {
-      head: ["Id", "Название", "Тренер", "Описание", "Цвет"],
-      body: trainings.map((training) => this.prepareToBody(training)),
+      head: ["Id", "Название", "Описание", "Цвет"],
+      body: models.map((model) => this.prepareToBody(model)),
     } as unknown as Grid;
   }
 
-  protected prepareToBody(training: Training): Body {
+  protected prepareToBody(model: TrainingRoom): Body {
     return {
       columns: [
-        training.id,
-        training.name,
-        training.trainer.name,
-        training.description,
-        this.api.styles.prepareStyleToTag(training.style),
+        model.id,
+        model.name,
+        model.description,
+        model.style ? this.api.styles.prepareStyleToTag(model.style) : null,
         [
           {
             title: "Удалить",
-            url: `trainings/training/?id=${training.id}`,
+            url: `training-rooms/room/?id=${model.id}`,
             icon: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
               <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
             </svg>`,
             method: "DELETE",
-            confirm: `Вы точно хотите удалить тренеровку ${training.name}?`,
+            confirm: `Вы точно хотите удалить зал ${model.name}?`,
           },
         ],
       ],
       actions: {
-        rowActionUrl: `trainings/training?id=${training.id}`,
+        rowActionUrl: `training-rooms/room?id=${model.id}`,
       },
     };
   }
 
-  public static prepareData(training: Training): TrainingInput {
+  public prepareData(training: TrainingRoom): TrainingRoomsInput {
     return {
       name: training.name,
       description: training.description,
-      trainer_id: training.trainer_id,
+      sort: training.sort,
       style_id: training.style_id,
     };
   }

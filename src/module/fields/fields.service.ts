@@ -69,4 +69,8 @@ export class FieldsService {
   public async getTrainers(): Promise<Record<string, string>> {
     return this.api.users.getTrainers();
   }
+
+  public async getTrainingRooms(): Promise<Record<string, string>> {
+    return this.api.trainingRooms.getTrainingRooms();
+  }
 }

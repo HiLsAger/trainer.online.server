@@ -40,7 +40,7 @@ export class FieldsController {
     return this.service.getTrainers();
   }
 
-  @Get("trainings-rooms")
+  @Get("training-rooms")
   @ApiBearerAuth("Authorization")
   @UseGuards(AuthGuard, PermissionGuard)
   async getTrainingRoomsList(

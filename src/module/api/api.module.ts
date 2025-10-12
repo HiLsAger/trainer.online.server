@@ -8,11 +8,22 @@ import UsersApi from "./users/users.api";
 import { User } from "../database/models/user.model";
 import TrainingRoomsApi from "./trainingRooms/trainingRooms.api";
 import { TrainingRoom } from "../database/models/trainingRoom.model";
+import { Setting } from "../database/models/setting.model";
+import SettingsApi from "./settings/settings.api";
+import Config from "../config/config";
 
 @Global()
 @Module({
-  imports: [SequelizeModule.forFeature([Style, User, TrainingRoom])],
-  providers: [ApiFacade, StylesApi, StyleBuilder, UsersApi, TrainingRoomsApi],
+  imports: [SequelizeModule.forFeature([Style, User, TrainingRoom, Setting])],
+  providers: [
+    ApiFacade,
+    StylesApi,
+    StyleBuilder,
+    UsersApi,
+    TrainingRoomsApi,
+    SettingsApi,
+    Config,
+  ],
   exports: [ApiFacade, StyleBuilder],
 })
 export default class ApiModule {}

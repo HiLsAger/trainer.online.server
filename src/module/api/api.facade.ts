@@ -2,6 +2,7 @@ import StylesApi from "./styles/styles.api";
 import { forwardRef, Inject, Injectable } from "@nestjs/common";
 import UsersApi from "./users/users.api";
 import TrainingRoomsApi from "./trainingRooms/trainingRooms.api";
+import SettingsApi from "./settings/settings.api";
 
 @Injectable()
 export default class ApiFacade {
@@ -10,6 +11,7 @@ export default class ApiFacade {
     @Inject(forwardRef(() => UsersApi)) protected usersApi: UsersApi,
     @Inject(forwardRef(() => TrainingRoomsApi))
     protected trainingRoomsApi: TrainingRoomsApi,
+    @Inject(forwardRef(() => SettingsApi)) protected settingsApi: SettingsApi,
   ) {}
 
   get styles() {
@@ -22,5 +24,9 @@ export default class ApiFacade {
 
   get trainingRooms() {
     return this.trainingRoomsApi;
+  }
+
+  get settings() {
+    return this.settingsApi;
   }
 }

@@ -1,9 +1,9 @@
-import FormStorage from "../../storage/form.storage";
+import FormStorage from "../../storages/form.storage";
 import { Body, Grid } from "../../system/interfaces/grid.intefrace";
 import Form from "../../packages/forms/interfaces/form.interface";
 import { Role } from "../database/models/role.model";
 import { RoleInput } from "../database/model.inputs/role.input";
-import RoleTypeStorage from "../../storage/roleType.storage";
+import RoleTypeStorage from "../../storages/roleType.storage";
 
 export default class RolesHelper {
   public static prepareToForm(role: Role): Form {

@@ -48,4 +48,13 @@ export class FieldsController {
   ): Promise<Record<string, string>> {
     return this.service.getTrainingRooms();
   }
+
+  @Get("trainings")
+  @ApiBearerAuth("Authorization")
+  @UseGuards(AuthGuard, PermissionGuard)
+  async getTrainingsList(
+    @Auth() token: AuthToken,
+  ): Promise<Record<string, string>> {
+    return this.service.getTrainings();
+  }
 }

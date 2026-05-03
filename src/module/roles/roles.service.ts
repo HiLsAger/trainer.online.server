@@ -1,7 +1,7 @@
 import { InjectModel } from "@nestjs/sequelize";
 import { Permission } from "../database/models/permission.model";
 import { AuthToken } from "../database/models/authTokens.model";
-import ListStorage from "../../storage/list.storage";
+import ListStorage from "../../storages/list.storage";
 import { Filter, Grid } from "../../system/interfaces/grid.intefrace";
 import RolesHelper from "./roles.helper";
 import { Injectable } from "@nestjs/common";

@@ -1,4 +1,4 @@
-import FormStorage from "../../storage/form.storage";
+import FormStorage from "../../storages/form.storage";
 import { Body, Grid } from "../../system/interfaces/grid.intefrace";
 import Form from "../../packages/forms/interfaces/form.interface";
 import { Training } from "../database/models/training.model";

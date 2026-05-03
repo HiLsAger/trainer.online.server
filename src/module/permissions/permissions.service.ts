@@ -1,8 +1,8 @@
 import { InjectModel } from "@nestjs/sequelize";
 import { Permission } from "../database/models/permission.model";
 import { AuthToken } from "../database/models/authTokens.model";
-import ListStorage from "../../storage/list.storage";
-import { Filter, Grid } from "../../system/interfaces/grid.intefrace";
+import ListStorage from "../../storages/list.storage";
+import { Filter, Grid, Options } from "../../system/interfaces/grid.intefrace";
 import PermissionsHelper from "./permissions.helper";
 import { Injectable } from "@nestjs/common";
 import Form from "../../packages/forms/interfaces/form.interface";
@@ -30,7 +30,13 @@ export class PermissionsService {
       limit: Number(limit),
     });
 
-    return PermissionsHelper.prepareToGrid(permissions);
+    const options: Options = {
+      page: Number(page),
+      limit: Number(limit),
+      countPage: Math.ceil((await Permission.count()) / limit),
+    };
+
+    return PermissionsHelper.prepareToGrid(permissions, options);
   }
 
   public async getForm(id: number): Promise<Form> {

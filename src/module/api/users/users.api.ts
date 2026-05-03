@@ -2,7 +2,7 @@ import { forwardRef, Inject, Injectable } from "@nestjs/common";
 import ApiFacade from "../api.facade";
 import { InjectModel } from "@nestjs/sequelize";
 import { User } from "../../database/models/user.model";
-import RoleTypeStorage from "../../../storage/roleType.storage";
+import RoleTypeStorage from "../../../storages/roleType.storage";
 import { Role } from "../../database/models/role.model";
 import ApiAbstract from "../api.abstract";
 

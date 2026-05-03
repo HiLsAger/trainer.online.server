@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import Form from "../../packages/forms/interfaces/form.interface";
-import FormStorage from "../../storage/form.storage";
+import FormStorage from "../../storages/form.storage";
 import { Setting } from "../database/models/setting.model";
 import Label from "../../packages/forms/interfaces/label.interface";
 
@@ -29,6 +29,13 @@ export default class SettingsHelper {
 
   public getFieldTemplateByType(type: string): string {
     switch (type) {
+      case "schedule":
+        return FormStorage.templateTypeSchedule;
+      case "json":
+      case "array":
+      case "boolean":
+      case "number":
+      case "string":
       default:
         return FormStorage.templateTypeText;
     }

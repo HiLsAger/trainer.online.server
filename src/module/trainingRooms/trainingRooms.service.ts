@@ -3,7 +3,7 @@ import { InjectModel } from "@nestjs/sequelize";
 import { Training } from "../database/models/training.model";
 import { AuthToken } from "../database/models/authTokens.model";
 import { Filter, Grid } from "../../system/interfaces/grid.intefrace";
-import ListStorage from "../../storage/list.storage";
+import ListStorage from "../../storages/list.storage";
 import { Style } from "../database/models/style.model";
 import { User } from "../database/models/user.model";
 import Form from "../../packages/forms/interfaces/form.interface";

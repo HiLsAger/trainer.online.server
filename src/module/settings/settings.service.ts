@@ -6,6 +6,7 @@ import SettingsHelper from "./settings.helper";
 import Form from "../../packages/forms/interfaces/form.interface";
 import SettingsRepository from "./settings.repository";
 import SettingsValidator from "./validator/settings.validator";
+import Config from "../config/config";
 
 @Injectable()
 export default class SettingsService {
@@ -15,6 +16,7 @@ export default class SettingsService {
     protected readonly settingsHelper: SettingsHelper,
     protected readonly repository: SettingsRepository,
     protected readonly validator: SettingsValidator,
+    protected readonly config: Config,
   ) {}
 
   public async getGroups(): Promise<Record<string, string>> {
@@ -38,6 +40,7 @@ export default class SettingsService {
     }
 
     await this.repository.save(settings);
+    await this.config.loadSettings();
 
     return "success";
   }

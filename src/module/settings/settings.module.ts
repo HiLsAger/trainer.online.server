@@ -15,9 +15,11 @@ import StringValidator from "./validator/validators/string.validator";
 import BooleanValidator from "./validator/validators/boolean.validator";
 import DatetimeValidator from "./validator/validators/datetime.validator";
 import ArrayValidator from "./validator/validators/array.validator";
+import ScheduleValidator from "./validator/validators/schedule.validator";
+import ConfigModule from "../config/config.module";
 
 @Module({
-  imports: [SequelizeModule.forFeature([Setting, AuthToken])],
+  imports: [SequelizeModule.forFeature([Setting, AuthToken]), ConfigModule],
   controllers: [SettingsController],
   providers: [
     SettingsService,
@@ -25,13 +27,13 @@ import ArrayValidator from "./validator/validators/array.validator";
     CaslAbilityFactory,
     SettingsHelper,
     SettingsRepository,
-    Config,
     SettingsValidator,
     NumberValidator,
     StringValidator,
     BooleanValidator,
     DatetimeValidator,
     ArrayValidator,
+    ScheduleValidator,
   ],
 })
 export default class SettingsModule {}

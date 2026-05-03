@@ -1,5 +1,6 @@
 export default class FormStorage {
   public static readonly templateTypeText: string = "text";
+  public static readonly templateTypeSchedule: string = "schedule";
   public static readonly templateTypeColorPicker: string = "colorPicker";
   public static readonly templateTypeTextArea: string = "textArea";
   public static readonly templateTypeSelect: string = "select";

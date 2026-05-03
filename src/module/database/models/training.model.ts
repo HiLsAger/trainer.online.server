@@ -13,7 +13,6 @@ import {
 } from "sequelize-typescript";
 import { Style } from "./style.model";
 import { User } from "./user.model";
-import { TrainingRoom } from "./trainingRoom.model";
 
 @Table({
   tableName: "trainings",

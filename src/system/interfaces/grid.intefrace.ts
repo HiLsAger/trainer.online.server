@@ -5,6 +5,7 @@ export interface Filter {
 export interface Grid {
   head: (string | number)[];
   body: Body[];
+  options: Options;
 }
 
 export interface Body {
@@ -22,4 +23,10 @@ export interface Action {
   icon?: string | null;
   method?: string;
   confirm?: string;
+}
+
+export interface Options {
+  page: number;
+  limit: number;
+  countPage: number;
 }

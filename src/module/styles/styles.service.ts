@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
 import { AuthToken } from "../database/models/authTokens.model";
 import { Filter, Grid } from "../../system/interfaces/grid.intefrace";
-import ListStorage from "../../storage/list.storage";
+import ListStorage from "../../storages/list.storage";
 import Form from "../../packages/forms/interfaces/form.interface";
 import StylesHelper from "./styles.helper";
 import { Style } from "../database/models/style.model";

@@ -12,8 +12,10 @@ import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import Form from "../../packages/forms/interfaces/form.interface";
 import SettingsService from "./settings.service";
 import { Auth, AuthGuard } from "../guards/auth/auth.guard";
-import { PermissionGuard } from "../guards/permission/permission.guard";
+import { Permission, PermissionGuard } from "../guards/permission/permission.guard";
 import { AuthToken } from "../database/models/authTokens.model";
+import { AppAbility, Article } from "../guards/permission/casl-ability.factory";
+import { Actions } from "../guards/permission/permissions/actionsValues";
 
 @ApiTags("Работа с настройками")
 @Controller("settings")
@@ -32,6 +34,9 @@ export default class SettingsController {
   @Get("settings-by-group")
   @ApiBearerAuth("Authorization")
   @UseGuards(AuthGuard, PermissionGuard)
+  @Permission((ability: AppAbility) =>
+    ability.can(Actions.GetSettings, Article),
+  )
   public async getSettingsFormByGroup(
     @Auth() token: AuthToken,
     @Query("group") group: string,
@@ -42,6 +47,9 @@ export default class SettingsController {
   @Post("setting")
   @ApiBearerAuth("Authorization")
   @UseGuards(AuthGuard, PermissionGuard)
+  @Permission((ability: AppAbility) =>
+    ability.can(Actions.UpdateSettings, Article),
+  )
   public async setSettings(
     @Auth() token: AuthToken,
     @Body() settings: Record<string, string>,

@@ -4,7 +4,7 @@ import { InjectModel } from "@nestjs/sequelize";
 import { TrainingRoom } from "../../database/models/trainingRoom.model";
 import ApiAbstract from "../api.abstract";
 import { Role } from "../../database/models/role.model";
-import RoleTypeStorage from "../../../storage/roleType.storage";
+import RoleTypeStorage from "../../../storages/roleType.storage";
 
 @Injectable()
 export default class TrainingRoomsApi extends ApiAbstract {

@@ -1,10 +1,12 @@
 import { Global, Module } from "@nestjs/common";
 import Config from "./config";
-import ApiFacade from "../api/api.facade";
+import TimeHelper from "./helpers/time.helper";
+import LoaderModule from "./settingsLoader/loader.module";
 
 @Global()
 @Module({
-  providers: [ApiFacade],
-  exports: [Config],
+  imports: [LoaderModule],
+  providers: [Config, TimeHelper],
+  exports: [Config, TimeHelper],
 })
 export default class ConfigModule {}

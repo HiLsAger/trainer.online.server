@@ -7,6 +7,7 @@ import BooleanValidator from "./validators/boolean.validator";
 import DatetimeValidator from "./validators/datetime.validator";
 import ArrayValidator from "./validators/array.validator";
 import { ErrorInterface } from "./error.interface";
+import ScheduleValidator from "./validators/schedule.validator";
 
 @Injectable()
 export default class SettingsValidator {
@@ -19,12 +20,14 @@ export default class SettingsValidator {
     protected readonly booleanValidator: BooleanValidator,
     protected readonly datetimeValidator: DatetimeValidator,
     protected readonly arrayValidator: ArrayValidator,
+    protected readonly scheduleValidator: ScheduleValidator,
   ) {
     this.validators.string = stringValidator;
     this.validators.number = numberValidator;
     this.validators.boolean = booleanValidator;
     this.validators.datetime = datetimeValidator;
     this.validators.array = arrayValidator;
+    this.validators.schedule = scheduleValidator;
   }
 
   public validate(settings: Record<string, any>): ErrorInterface[] {

@@ -19,6 +19,10 @@ export enum Actions {
   GetUsers = "getUsers",
   UpdateUser = "updateUser",
   DeleteUser = "deleteUser",
+  GetSettings = "getSettings",
+  UpdateSettings = "updateSettings",
+  UpdateSchedule = "updateSchedule",
+  DeleteSchedule = "deleteSchedule",
 }
 
 const actionsValues = {

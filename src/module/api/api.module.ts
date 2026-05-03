@@ -10,11 +10,14 @@ import TrainingRoomsApi from "./trainingRooms/trainingRooms.api";
 import { TrainingRoom } from "../database/models/trainingRoom.model";
 import { Setting } from "../database/models/setting.model";
 import SettingsApi from "./settings/settings.api";
-import Config from "../config/config";
+import { Training } from "../database/models/training.model";
+import TrainingsApi from "./trainings/trainings.api";
 
 @Global()
 @Module({
-  imports: [SequelizeModule.forFeature([Style, User, TrainingRoom, Setting])],
+  imports: [
+    SequelizeModule.forFeature([Style, User, TrainingRoom, Setting, Training]),
+  ],
   providers: [
     ApiFacade,
     StylesApi,
@@ -22,7 +25,7 @@ import Config from "../config/config";
     UsersApi,
     TrainingRoomsApi,
     SettingsApi,
-    Config,
+    TrainingsApi,
   ],
   exports: [ApiFacade, StyleBuilder],
 })

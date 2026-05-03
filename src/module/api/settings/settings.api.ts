@@ -3,13 +3,11 @@ import { forwardRef, Inject, Injectable } from "@nestjs/common";
 import ApiFacade from "../api.facade";
 import { InjectModel } from "@nestjs/sequelize";
 import { Setting } from "../../database/models/setting.model";
-import Config from "../../config/config";
 
 @Injectable()
 export default class SettingsApi extends ApiAbstract {
   constructor(
     @Inject(forwardRef(() => ApiFacade)) protected readonly api: ApiFacade,
-    @Inject(forwardRef(() => Config)) protected readonly config: Config,
     @InjectModel(Setting) protected readonly settingModel: typeof Setting,
   ) {
     super();

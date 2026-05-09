@@ -51,6 +51,10 @@ export class Schedule extends Model<
   @Column(DataType.TIME)
   start_time: string;
 
+  @AllowNull(false)
+  @Column(DataType.TIME)
+  duration: string;
+
   @AllowNull(true)
   @Column(DataType.DATE)
   end_date: string;
@@ -59,11 +63,6 @@ export class Schedule extends Model<
   @Default(1)
   @Column(DataType.BOOLEAN)
   always: boolean;
-
-  @AllowNull(false)
-  @Default(1)
-  @Column(DataType.INTEGER)
-  count_cell: number;
 
   @BelongsTo(() => Training)
   training: Training;

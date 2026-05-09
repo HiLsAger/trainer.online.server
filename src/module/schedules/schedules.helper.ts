@@ -9,7 +9,7 @@ export default class SchedulesHelper {
       training_room_id: training.training_room_id,
       start_date: training.start_date,
       start_time: training.start_time,
-      count_cell: training.count_cell,
+      duration: training.duration,
       end_date: training.end_date,
       always: training.always,
       price: training.price,

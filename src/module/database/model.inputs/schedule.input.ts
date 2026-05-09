@@ -16,19 +16,19 @@ export default class ScheduleInput implements CreationAttributes<Schedule> {
   @IsOptional()
   id: number;
 
-  @ApiProperty({ description: "Дата окончания тренировки дд.мм.гггг" })
+  @ApiProperty({ description: "Дата окончания тренировки гггг-мм-дд" })
   @IsString()
   @IsOptional()
-  @Matches(/^(0[1-9]|[12][0-9]|3[01])\.(0[1-9]|1[0-2])\.\d{4}$/, {
-    message: "Дата окончания должна быть в формате дд.мм.гггг",
+  @Matches(/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/, {
+    message: "Дата окончания должна быть в формате гггг-мм-дд",
   })
   end_date: string;
 
-  @ApiProperty({ description: "Дата старта тренировки дд.мм.гггг" })
+  @ApiProperty({ description: "Дата старта тренировки гггг-мм-дд" })
   @IsString()
   @IsNotEmpty()
-  @Matches(/^(0[1-9]|[12][0-9]|3[01])\.(0[1-9]|1[0-2])\.\d{4}$/, {
-    message: "Дата старта должна быть в формате дд.мм.гггг",
+  @Matches(/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/, {
+    message: "Дата старта должна быть в формате гггг-мм-дд",
   })
   start_date: string;
 
@@ -39,6 +39,14 @@ export default class ScheduleInput implements CreationAttributes<Schedule> {
     message: "Время старта должно быть в формате чч:мм",
   })
   start_time: string;
+
+  @ApiProperty({ description: "Длительность тренировки чч:мм" })
+  @IsString()
+  @IsNotEmpty()
+  @Matches(/^([01][0-9]|2[0-3]):[0-5][0-9]$/, {
+    message: "Длительность тренировки должна быть в формате чч:мм",
+  })
+  duration: string;
 
   @ApiProperty({ description: "ID тренировки" })
   @IsNumber()
@@ -56,14 +64,6 @@ export default class ScheduleInput implements CreationAttributes<Schedule> {
   @IsBoolean()
   @IsNotEmpty()
   always: boolean;
-
-  @ApiProperty({
-    description:
-      "Количество времени count_cell * {Период секций времени в минутах}",
-  })
-  @IsNumber()
-  @IsNotEmpty()
-  count_cell: number;
 
   @ApiProperty({ description: "Цена" })
   @IsNumber()

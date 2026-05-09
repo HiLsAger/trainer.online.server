@@ -3,6 +3,7 @@ import ApiFacade from "../api/api.facade";
 import { Schedule } from "../database/models/schedule.model";
 import ScheduleInput from "../database/model.inputs/schedule.input";
 import SchedulesHelper from "./schedules.helper";
+import { ScheduleInterface } from "../api/schedules/schedules.interfaces";
 
 @Injectable()
 export default class SchedulesService {
@@ -22,7 +23,7 @@ export default class SchedulesService {
 
     const model = await Schedule.create({
       always: data.always,
-      count_cell: data.count_cell,
+      duration: data.duration,
       price: data.price,
       training_id: data.training_id,
       training_room_id: data.training_room_id,
@@ -42,7 +43,7 @@ export default class SchedulesService {
 
     await model.update({
       always: data.always,
-      count_cell: data.count_cell,
+      duration: data.duration,
       price: data.price,
       training_id: data.training_id,
       training_room_id: data.training_room_id,
@@ -52,6 +53,18 @@ export default class SchedulesService {
     });
 
     return SchedulesHelper.prepareData(model);
+  }
+
+  public async getScheduleList(
+    startDate: string,
+    endDate: string,
+    trainingRoomId: number,
+  ): Promise<Record<string, Omit<ScheduleInterface, "date">[]>> {
+    return await this.api.schedules.getScheduleBetweenDate(
+      startDate,
+      endDate,
+      trainingRoomId,
+    );
   }
 
   public async delete(id: number): Promise<string> {

@@ -4,6 +4,7 @@ import UsersApi from "./users/users.api";
 import TrainingRoomsApi from "./trainingRooms/trainingRooms.api";
 import SettingsApi from "./settings/settings.api";
 import TrainingsApi from "./trainings/trainings.api";
+import SchedulesApi from "./schedules/schedules.api";
 
 @Injectable()
 export default class ApiFacade {
@@ -15,6 +16,8 @@ export default class ApiFacade {
     @Inject(forwardRef(() => SettingsApi)) protected settingsApi: SettingsApi,
     @Inject(forwardRef(() => TrainingsApi))
     protected trainingsApi: TrainingsApi,
+    @Inject(forwardRef(() => SchedulesApi))
+    protected schedulesApi: SchedulesApi,
   ) {}
 
   get styles() {
@@ -35,5 +38,9 @@ export default class ApiFacade {
 
   get trainings() {
     return this.trainingsApi;
+  }
+
+  get schedules() {
+    return this.schedulesApi;
   }
 }

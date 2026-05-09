@@ -12,12 +12,16 @@ module.exports = {
         name: "deleteSchedule",
         description: "delete training from schedule table",
       },
+      {
+        name: "getSchedule",
+        description: "get trainings from schedule table",
+      },
     ]);
 
     const permissions = await queryInterface.sequelize.query(
       "SELECT id, name FROM permissions WHERE name IN (?)",
       {
-        replacements: [["updateSchedule", "deleteSchedule"]],
+        replacements: [["updateSchedule", "deleteSchedule", "getSchedule"]],
         type: Sequelize.QueryTypes.SELECT,
       },
     );
@@ -49,7 +53,7 @@ module.exports = {
     const permissionsToDelete = await queryInterface.sequelize.query(
       "SELECT id FROM permissions WHERE name IN (?)",
       {
-        replacements: [["updateSchedule", "deleteSchedule"]],
+        replacements: [["updateSchedule", "deleteSchedule", "getSchedule"]],
         type: Sequelize.QueryTypes.SELECT,
       },
     );

@@ -12,11 +12,20 @@ import { Setting } from "../database/models/setting.model";
 import SettingsApi from "./settings/settings.api";
 import { Training } from "../database/models/training.model";
 import TrainingsApi from "./trainings/trainings.api";
+import SchedulesApi from "./schedules/schedules.api";
+import { Schedule } from "../database/models/schedule.model";
 
 @Global()
 @Module({
   imports: [
-    SequelizeModule.forFeature([Style, User, TrainingRoom, Setting, Training]),
+    SequelizeModule.forFeature([
+      Style,
+      User,
+      TrainingRoom,
+      Setting,
+      Training,
+      Schedule,
+    ]),
   ],
   providers: [
     ApiFacade,
@@ -26,6 +35,7 @@ import TrainingsApi from "./trainings/trainings.api";
     TrainingRoomsApi,
     SettingsApi,
     TrainingsApi,
+    SchedulesApi,
   ],
   exports: [ApiFacade, StyleBuilder],
 })

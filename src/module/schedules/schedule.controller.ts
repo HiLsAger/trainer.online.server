@@ -1,4 +1,12 @@
-import { Body, Controller, Param, Post, UseGuards } from "@nestjs/common";
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Query,
+  UseGuards,
+} from "@nestjs/common";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import SchedulesService from "./schedules.service";
 import { Auth, AuthGuard } from "../guards/auth/auth.guard";
@@ -10,6 +18,7 @@ import { AppAbility, Article } from "../guards/permission/casl-ability.factory";
 import { Actions } from "../guards/permission/permissions/actionsValues";
 import { AuthToken } from "../database/models/authTokens.model";
 import ScheduleInput from "../database/model.inputs/schedule.input";
+import { ScheduleInterface } from "../api/schedules/schedules.interfaces";
 
 @ApiTags("Расписание")
 @Controller("schedules")
@@ -41,5 +50,24 @@ export default class ScheduleController {
     @Param("id") id: number,
   ): Promise<ScheduleInput> {
     return await this.service.upsert(body, body.id ?? id);
+  }
+
+  @Get("schedule")
+  @ApiBearerAuth("Authorization")
+  @UseGuards(AuthGuard, PermissionGuard)
+  @Permission((ability: AppAbility) =>
+    ability.can(Actions.GetSchedule, Article),
+  )
+  public async schedule(
+    @Auth() token: AuthToken,
+    @Query("start_date") startDate: string,
+    @Query("end_date") endDate: string,
+    @Query("training_room_id") trainingRoomId: number,
+  ): Promise<Record<string, Omit<ScheduleInterface, "date">[]>> {
+    return await this.service.getScheduleList(
+      startDate,
+      endDate,
+      trainingRoomId,
+    );
   }
 }

@@ -52,13 +52,13 @@ export default class ScheduleController {
     return await this.service.upsert(body, body.id ?? id);
   }
 
-  @Get("schedule")
+  @Get("schedule-list")
   @ApiBearerAuth("Authorization")
   @UseGuards(AuthGuard, PermissionGuard)
   @Permission((ability: AppAbility) =>
     ability.can(Actions.GetSchedule, Article),
   )
-  public async schedule(
+  public async schedules(
     @Auth() token: AuthToken,
     @Query("start_date") startDate: string,
     @Query("end_date") endDate: string,
@@ -69,5 +69,18 @@ export default class ScheduleController {
       endDate,
       trainingRoomId,
     );
+  }
+
+  @Get("schedule/:id")
+  @ApiBearerAuth("Authorization")
+  @UseGuards(AuthGuard, PermissionGuard)
+  @Permission((ability: AppAbility) =>
+    ability.can(Actions.GetSchedule, Article),
+  )
+  public async schedule(
+    @Auth() token: AuthToken,
+    @Param("id") id: number,
+  ): Promise<ScheduleInterface> {
+    return await this.service.getScheduleById(id);
   }
 }

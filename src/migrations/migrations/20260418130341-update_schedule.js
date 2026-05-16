@@ -3,6 +3,12 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
+    await queryInterface.changeColumn("schedules", "start_date", {
+      type: Sequelize.DATEONLY,
+      allowNull: false,
+    });
+
+
     await queryInterface.removeColumn("schedules", "trainer_id");
     await queryInterface.removeColumn("schedules", "time_id");
     await queryInterface.removeColumn("schedules", "day_of_week");
@@ -74,6 +80,11 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
+    await queryInterface.changeColumn("schedules", "start_date", {
+      type: Sequelize.DATE,
+      allowNull: false,
+    });
+
     await queryInterface.removeColumn("schedules", "count_cell");
     await queryInterface.removeColumn("schedules", "always");
     await queryInterface.removeColumn("schedules", "end_date");

@@ -67,6 +67,15 @@ export default class SchedulesService {
     );
   }
 
+  public async getScheduleById(id: number): Promise<ScheduleInterface> {
+    const schedule = this.api.schedules.getScheduleById(id);
+    if (!schedule) {
+      throw new Error("Не удалось найти запись");
+    }
+
+    return schedule;
+  }
+
   public async delete(id: number): Promise<string> {
     await Schedule.destroy({
       where: { id: id },

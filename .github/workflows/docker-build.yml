@@ -10,11 +10,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Login to GHCR
-        uses: docker/login-action@v3
+      - uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
@@ -22,8 +20,8 @@ jobs:
 
       - name: Build image
         run: |
-          docker build -t ghcr.io/${{ github.repository_owner }}/trainer-backend:${{ github.ref_name }} .
+          docker build -t ghcr.io/hilsager/trainer-backend:${{ github.ref_name }} .
 
       - name: Push image
         run: |
-          docker push ghcr.io/${{ github.repository_owner }}/trainer-backend:${{ github.ref_name }}
+          docker push ghcr.io/hilsager/trainer-backend:${{ github.ref_name }}

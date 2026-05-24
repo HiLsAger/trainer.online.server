@@ -3,15 +3,20 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.addColumn("roles_permissions", "condition", {
-      type: Sequelize.ENUM("self", "priority", "%", ""),
-      allowNull: false,
-      defaultValue: "self",
-      charset: "utf8mb4",
-      collate: "utf8mb4_0900_ai_ci",
-    });
+    const tableDescription =
+      await queryInterface.describeTable("roles_permissions");
 
-    queryInterface.bulkInsert("permissions", [
+    if (!tableDescription.condition) {
+      await queryInterface.addColumn("roles_permissions", "condition", {
+        type: Sequelize.ENUM("self", "priority", "%", ""),
+        allowNull: false,
+        defaultValue: "self",
+        charset: "utf8mb4",
+        collate: "utf8mb4_0900_ai_ci",
+      });
+    }
+
+    await queryInterface.bulkInsert("permissions", [
       {
         name: "editStatus",
         description: "Edit Profile post",

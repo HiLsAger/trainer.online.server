@@ -79,7 +79,7 @@ docker run -d \
 
 ```bash
 cd trainer.online.server
-docker compose up --build -d
+docker-compose up --build -d
 ```
 
 ---

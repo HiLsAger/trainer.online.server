@@ -16,7 +16,11 @@ COPY --from=builder /app/package.json ./
 COPY --from=builder /app/yarn.lock ./
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/src/migrations ./migrations
+COPY --from=builder /app/docker ./
+
+RUN chmod +x entrypoint.sh
 
 EXPOSE 3000
 
-CMD ["node", "dist/main.js"]
+CMD ["sh", "entrypoint.sh"]
